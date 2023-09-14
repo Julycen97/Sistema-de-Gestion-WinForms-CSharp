@@ -31,7 +31,7 @@ namespace Vistas
             ArticuloNegocio negocio = new ArticuloNegocio();
             try
             {
-                listaArticulos = negocio.listar();                                      // crear funcion listar en   ArticuloNegocio
+                listaArticulos = negocio.ObtenerDatos();                                      // crear funcion listar en   ArticuloNegocio
                 dgvArticulos.DataSource = listaArticulos;
             }
             catch (Exception ex)

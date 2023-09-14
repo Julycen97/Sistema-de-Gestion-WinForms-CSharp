@@ -11,9 +11,9 @@ namespace Negocio
     public class AccesoDatos
     {
         //ATRIBUTOS PARA CONEXION A DB
-        SqlConnection conexion;
-        SqlCommand comando;
-        SqlDataReader lector;
+        private SqlConnection conexion;
+        private SqlCommand comando;
+        private SqlDataReader lector;
 
         //CTOR. CON ASIGNACIÓN DE OBJETOS A VARIABLES,
         //SETEO DEL TIPO DE COMANDO
@@ -33,13 +33,13 @@ namespace Negocio
         }
 
         //SETEAR CONSULTA SQL
-        public void SetearConsultas(string consulta)
+        public void SetearConsulta(string consulta)
         {
             comando.CommandText = consulta;
         }
 
         //SETEAR PARAMETROS DEL COMANDO PARA UTILIZAR EN CONSULTA SQL
-        public void SetearParametros(string nombre, object valor)
+        public void SetearParametro(string nombre, object valor)
         {
             comando.Parameters.AddWithValue(nombre, valor);
         }

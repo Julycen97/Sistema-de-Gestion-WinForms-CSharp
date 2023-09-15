@@ -45,6 +45,7 @@ namespace Vistas
                 articulo.NombreArt = txtNombre.Text;
                 articulo.MarcaArt = (Marca)cboMarca.SelectedItem;
                 articulo.CategoriaArt = (Categoria)cboCategoria.SelectedItem;
+                articulo.PrecioArt = (decimal)float.Parse(txtPrecio.Text);
                 // falta mandar imagen
 
 
@@ -52,9 +53,12 @@ namespace Vistas
             else
             {
                 esAgregar = false;
-
-
-
+                articulo.CodArt = txtCodigo.Text;
+                articulo.DescripcionArt = txtDescripcion.Text;
+                articulo.NombreArt = txtNombre.Text;
+                articulo.MarcaArt = (Marca)cboMarca.SelectedItem;
+                articulo.CategoriaArt = (Categoria)cboCategoria.SelectedItem;
+                articulo.PrecioArt = (decimal)float.Parse(txtPrecio.Text);
             }
 
             try

@@ -59,7 +59,9 @@ namespace Vistas
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            frmAltaArticulo frmAltaArticulo = new frmAltaArticulo((Articulo)dgvArticulos.CurrentRow.DataBoundItem);
+            Articulo articulo = new Articulo();
+            articulo = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+            frmAltaArticulo frmAltaArticulo = new frmAltaArticulo(articulo);
             frmAltaArticulo.ShowDialog();
             cargar();
         }

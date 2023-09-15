@@ -90,7 +90,7 @@ namespace Negocio
                     }*/
                     aux.ImagenArt = ObtenerImagenes(aux);
 
-                    //articulos.Add(aux);
+                    articulos.Add(aux);
                 }
 
                 return articulos;

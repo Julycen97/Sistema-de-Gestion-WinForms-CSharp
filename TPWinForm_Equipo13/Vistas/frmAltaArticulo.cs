@@ -46,25 +46,35 @@ namespace Vistas
                 articulo.MarcaArt = (Marca)cboMarca.SelectedItem;
                 articulo.CategoriaArt = (Categoria)cboCategoria.SelectedItem;
                 // falta mandar imagen
-                
-                
+
+
             }
             else
             {
                 esAgregar = false;
-                
+
 
 
             }
 
             try
             {
-                artNeg.Agregar_ModificarDatos(articulo,esAgregar);
+                artNeg.Agregar_ModificarDatos(articulo, esAgregar);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
+            if (esAgregar)
+            {
+                MessageBox.Show("Registro agregado exitosamente!");
+            }
+            else
+            {
+            MessageBox.Show("Registro modificado exitosamente!");
+            }
+            Close();
+
 
         }
 

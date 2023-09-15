@@ -47,14 +47,14 @@ namespace Negocio
 
         //AGREGAR O MODIFICAR DECIDIENDO POR BANDERA BOOLEANA
         //SETEANDO LA CONSULTA DEPENDIENDO EL CASO
-        public void Agregar_ModificarDatos(Imagen aux, bool bandera)
+        public void Agregar_ModificarDatos(Imagen aux, bool esAgregar)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
                 //SI ES TRUE AGREGA
-                if (bandera)
+                if (esAgregar)
                 {
                     datos.SetearConsulta("INSERT INTO IMAGENES (IdArticulo, ImagenURL) VAUES (@IdArt, @URLImagen)");
                 }

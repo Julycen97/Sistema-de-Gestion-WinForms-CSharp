@@ -27,7 +27,6 @@ namespace Negocio
             try
             {
                 //CARGA DE LISTA CON TODAS LAS IMAGENES
-                listaImg = img.ObtenerDatos();
 
                 datosArt.SetearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, M.Descripcion AS Marca, A.IdCategoria, C.Descripcion AS Categoria, Precio FROM ARTICULOS AS A, MARCAS AS M, CATEGORIAS AS C WHERE A.IdMarca = M.Id AND A.IdCategoria = C.Id");
                 datosArt.AbrirConexionEjecutarConsulta();
@@ -89,9 +88,9 @@ namespace Negocio
                             aux.ImagenArt.Add(x);
                         }
                     }*/
-                    ObtenerImagenes(aux);
+                    aux.ImagenArt = ObtenerImagenes(aux);
 
-                    articulos.Add(aux);
+                    //articulos.Add(aux);
                 }
 
                 return articulos;
@@ -108,14 +107,19 @@ namespace Negocio
 
         public List<Imagen> ObtenerImagenes(Articulo articulo)
         {
+            ImagenNegocio imagenNegocio = new ImagenNegocio();
             List<Imagen> listaImagenes = new List<Imagen>();
+            List<Imagen> aux = new List<Imagen>();
 
-            foreach (Imagen x in listaImagenes)
+            aux = imagenNegocio.ObtenerDatos();
+
+
+            foreach (Imagen x in aux)
             {
                 if (x.IdArt == articulo.ID)
                 {
                     //IMAGENART ES UNA LISTA DE IMAGENES EN ARTICULOS
-                    articulo.ImagenArt.Add(x);
+                    listaImagenes.Add(x);
                 }
             }
 

@@ -27,7 +27,7 @@ namespace Vistas
             this.articulo = articulo;
         }
 
-        private void frmDetalleArticulo_Load(object sender, EventArgs e)
+        private void frmDetalleArticulo_Load(object sender, EventArgs e)            // FALTA QUE SE CARGUEN LAS IMG
         {
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
 

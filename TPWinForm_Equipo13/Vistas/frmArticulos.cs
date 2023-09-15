@@ -61,6 +61,16 @@ namespace Vistas
             dgvArticulos.Columns["CodArt"].Visible = false;
 
         }
+
+        private void btnVerDetalle_Click(object sender, EventArgs e)
+        {
+            Articulo seleccionado;
+            seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+
+            frmDetalleArticulo verDetalle = new frmDetalleArticulo(seleccionado);
+            verDetalle.ShowDialog();
+
+        }
     }
 
 }

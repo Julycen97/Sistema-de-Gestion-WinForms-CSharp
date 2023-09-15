@@ -187,7 +187,7 @@
             // 
             // pbxImagen
             // 
-            this.pbxImagen.Location = new System.Drawing.Point(365, 32);
+            this.pbxImagen.Location = new System.Drawing.Point(336, 38);
             this.pbxImagen.Name = "pbxImagen";
             this.pbxImagen.Size = new System.Drawing.Size(300, 300);
             this.pbxImagen.TabIndex = 16;
@@ -206,7 +206,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(712, 370);
+            this.ClientSize = new System.Drawing.Size(679, 376);
             this.Controls.Add(this.btnAgregarImagen);
             this.Controls.Add(this.pbxImagen);
             this.Controls.Add(this.btnCancelar);

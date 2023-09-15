@@ -13,5 +13,10 @@ namespace Dominio
         public int IdMarca { get; set; }
         [DisplayName("Marca")]
         public string NombreMarca { get; set; }
+
+        public override string ToString()
+        {
+            return "Hola";
+        }
     }
 }

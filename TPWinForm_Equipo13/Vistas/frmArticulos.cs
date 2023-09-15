@@ -40,6 +40,16 @@ namespace Vistas
             }
         }
 
+        private void btnAgregar_Click(object sender, EventArgs e)
+        {
+            frmAltaArticulo frmAltaArticulo = new frmAltaArticulo();
+            frmAltaArticulo.ShowDialog();
+        }
+
+        private void btnModificar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 
 }

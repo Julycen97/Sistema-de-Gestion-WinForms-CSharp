@@ -21,7 +21,7 @@ namespace Negocio
 
             try
             {
-                datos.SetearConsulta("SELECT Id, Codigo, Nombre, Descripcion, IdMarca, IdCategoria, Precio FROM ARTICULOS");
+                datos.SetearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, M.Descripcion AS Marca, C.Descripcion AS Categoria, Precio FROM ARTICULOS AS A, MARCAS AS M, CATEGORIAS AS C WHERE A.IdMarca = M.Id AND A.IdCategoria = C.Id");
                 datos.AbrirConexionEjecutarConsulta();
 
                 while (datos.Lector.Read())
@@ -46,14 +46,14 @@ namespace Negocio
                         aux.DescripcionArt = (string)datos.Lector["Descripcion"];
                     }
                     //CHECK NULL
-                    if (!(datos.Lector["IdMarca"] is DBNull))
+                    if (!(datos.Lector["Marca"] is DBNull))
                     {
-                        aux.MarcaArt.IdMarca = (int)datos.Lector["IdMarca"];
+                        aux.MarcaArt.NombreMarca = (string)datos.Lector["Marca"];
                     }
                     //CHECK NULL
-                    if (!(datos.Lector["IdCategoria"] is DBNull))
+                    if (!(datos.Lector["Categoria"] is DBNull))
                     {
-                        aux.CategoriaArt.IdCategoria = (int)datos.Lector["IdCategoria"];
+                        aux.CategoriaArt.NombreCategoria = (string)datos.Lector["Categoria"];
                     }
                     //CHECK NULL
                     if (!(datos.Lector["Precio"] is DBNull))
@@ -79,7 +79,7 @@ namespace Negocio
 
         //AGREGAR O MODIFICAR DECIDIENDO POR BANDERA BOOLEANA
         //SETEANDO LA CONSULTA DEPENDIENDO EL CASO
-        public void Agregar_ModificarDatos(Articulo aux, bool bandera= true)
+        public void Agregar_ModificarDatos(Articulo aux, bool bandera)
         {
             AccesoDatos datos = new AccesoDatos();
 

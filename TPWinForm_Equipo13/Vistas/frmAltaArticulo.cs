@@ -15,6 +15,7 @@ namespace Vistas
     public partial class frmAltaArticulo : Form
     {
         private Articulo articulo = null;
+
         public frmAltaArticulo()
         {
             InitializeComponent();

@@ -206,7 +206,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(642, 370);
+            this.ClientSize = new System.Drawing.Size(712, 370);
             this.Controls.Add(this.btnAgregarImagen);
             this.Controls.Add(this.pbxImagen);
             this.Controls.Add(this.btnCancelar);
@@ -226,6 +226,7 @@
             this.Controls.Add(this.lblCodigo);
             this.Controls.Add(this.btnAceptar);
             this.Name = "frmAltaArticulo";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agregar articulo";
             this.Load += new System.EventHandler(this.frmAltaArticulo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pbxImagen)).EndInit();

@@ -32,8 +32,9 @@ namespace Vistas
 
             try
             {
-                listaArticulos = negocio.ObtenerDatos();                                      // crear funcion listar en   ArticuloNegocio
+                listaArticulos = negocio.ObtenerDatos();
                 dgvArticulos.DataSource = listaArticulos;
+                ocultarColumnas();
             }
             catch (Exception ex)
             {
@@ -51,6 +52,13 @@ namespace Vistas
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
+
+        }
+    
+        private void ocultarColumnas()
+        {
+            dgvArticulos.Columns["Id"].Visible = false;
+            dgvArticulos.Columns["CodArt"].Visible = false;
 
         }
     }

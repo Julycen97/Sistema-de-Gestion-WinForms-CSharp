@@ -81,14 +81,15 @@ namespace Negocio
                     }
 
                     //RECORRE TODAS LAS IMAGENES Y LAS AGREGA EN CASO DE COINCIDIR CON MISMO ID
-                    foreach (Imagen x in listaImg)
+                    /*foreach (Imagen x in listaImg)
                     {
                         if(x.IdArt == aux.ID)
                         {
                             //IMAGENART ES UNA LISTA DE IMAGENES EN ARTICULOS
                             aux.ImagenArt.Add(x);
                         }
-                    }
+                    }*/
+                    ObtenerImagenes(aux);
 
                     articulos.Add(aux);
                 }
@@ -103,6 +104,22 @@ namespace Negocio
             {
                 datosArt.CerrarConexion();
             }
+        }
+
+        public List<Imagen> ObtenerImagenes(Articulo articulo)
+        {
+            List<Imagen> listaImagenes = new List<Imagen>();
+
+            foreach (Imagen x in listaImagenes)
+            {
+                if (x.IdArt == articulo.ID)
+                {
+                    //IMAGENART ES UNA LISTA DE IMAGENES EN ARTICULOS
+                    articulo.ImagenArt.Add(x);
+                }
+            }
+
+            return listaImagenes;
         }
 
         //AGREGAR O MODIFICAR DECIDIENDO POR BANDERA BOOLEANA

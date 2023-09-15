@@ -16,6 +16,8 @@ namespace Vistas
     {
         private Articulo articulo = null;
 
+        private Imagen imagen = null;
+
         public frmAltaArticulo()
         {
             InitializeComponent();
@@ -32,6 +34,7 @@ namespace Vistas
         {
             bool esAgregar = true;
             ArticuloNegocio artNeg = new ArticuloNegocio();
+            ImagenNegocio imgNeg = new ImagenNegocio();
 
             if (articulo == null)
             {
@@ -42,10 +45,15 @@ namespace Vistas
                 articulo.NombreArt = txtNombre.Text;
                 articulo.MarcaArt = (Marca)cboMarca.SelectedItem;
                 articulo.CategoriaArt = (Categoria)cboCategoria.SelectedItem;
+                
+                
             }
             else
             {
                 esAgregar = false;
+                
+
+
             }
 
             try
@@ -55,6 +63,17 @@ namespace Vistas
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
+            }
+
+            try
+            {
+                imagen = new Imagen();
+                imagen.URLImagen = txtImagenes.Text;
+                //imagen.IdArt = 
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show("No se pudo agregar imagen. Error: " + exc.ToString());
             }
         }
 
@@ -67,7 +86,8 @@ namespace Vistas
         {
             MarcaNegocio marcaNegocio = new MarcaNegocio();
             CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
-
+            ArticuloNegocio artNeg = new ArticuloNegocio();
+                   
             try
             {
                 cboMarca.DataSource = marcaNegocio.ObtenerDatos();
@@ -77,6 +97,16 @@ namespace Vistas
                 cboCategoria.DataSource = categoriaNegocio.ObtenerDatos();
                 cboCategoria.ValueMember = "IdCategoria";
                 cboCategoria.DisplayMember = "NombreCategoria";
+
+                if (articulo != null)
+                {
+                    txtCodigo.Text = articulo.CodArt;
+                    txtDescripcion.Text = articulo.DescripcionArt;
+                    txtNombre.Text = articulo.NombreArt;
+                    cboMarca.SelectedValue = articulo.MarcaArt.IdMarca;
+                    cboCategoria.SelectedValue = articulo.CategoriaArt.IdCategoria;
+                    txtPrecio.Text = articulo.PrecioArt.ToString();
+                }
             }
             catch (Exception ex)
             {
@@ -84,5 +114,19 @@ namespace Vistas
                 MessageBox.Show(ex.ToString());
             }
         }
+
+        private void btnAgregarImagen_Click(object sender, EventArgs e)
+        {
+            try
+            {
+            pbxImagen.Load(txtImagenes.Text);
+
+            }
+            catch (Exception)
+            {
+            pbxImagen.Load("https://images.assetsdelivery.com/compings_v2/pavelstasevich/pavelstasevich1811/pavelstasevich181101028.jpg");
+            }
+        }
+
     }
 }

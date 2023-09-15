@@ -59,7 +59,9 @@ namespace Vistas
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-
+            frmAltaArticulo frmAltaArticulo = new frmAltaArticulo((Articulo)dgvArticulos.CurrentRow.DataBoundItem);
+            frmAltaArticulo.ShowDialog();
+            cargar();
         }
     
         private void ocultarColumnas()

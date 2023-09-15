@@ -167,5 +167,13 @@ namespace Negocio
                 datos.CerrarConexion();
             }
         }
+
+        public List<Articulo> filtrar(string campo, string criterio, string filtro)
+        {
+            List<Articulo> lista = new List<Articulo>();
+            AccesoDatos datos = new AccesoDatos();
+
+            return lista;
+        }
     }
 }

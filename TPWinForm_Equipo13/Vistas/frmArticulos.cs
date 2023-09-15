@@ -138,6 +138,31 @@ namespace Vistas
                 MessageBox.Show(ex.ToString());
             }
         }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            eliminar();
+        }
+
+        private void eliminar()
+        {
+            ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+            Articulo articulo;
+            try
+            {
+                DialogResult respuesta = MessageBox.Show("¿Estás seguro que deseas eliminarlo?", "Eliminado", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                if (respuesta == DialogResult.Yes)
+                {
+                    articulo = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+                    articuloNegocio.EliminarDatos(articulo.ID);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            cargar();
+            }
+        }
     }
 
-}

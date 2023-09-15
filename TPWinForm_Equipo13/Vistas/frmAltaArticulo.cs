@@ -45,6 +45,7 @@ namespace Vistas
                 articulo.NombreArt = txtNombre.Text;
                 articulo.MarcaArt = (Marca)cboMarca.SelectedItem;
                 articulo.CategoriaArt = (Categoria)cboCategoria.SelectedItem;
+                // falta mandar imagen
                 
                 
             }
@@ -65,16 +66,6 @@ namespace Vistas
                 MessageBox.Show(ex.ToString());
             }
 
-            try
-            {
-                imagen = new Imagen();
-                imagen.URLImagen = txtImagenes.Text;
-                //imagen.IdArt = 
-            }
-            catch (Exception exc)
-            {
-                MessageBox.Show("No se pudo agregar imagen. Error: " + exc.ToString());
-            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -106,6 +97,7 @@ namespace Vistas
                     cboMarca.SelectedValue = articulo.MarcaArt.IdMarca;
                     cboCategoria.SelectedValue = articulo.CategoriaArt.IdCategoria;
                     txtPrecio.Text = articulo.PrecioArt.ToString();
+                    // falta precargar una imagen
                 }
             }
             catch (Exception ex)

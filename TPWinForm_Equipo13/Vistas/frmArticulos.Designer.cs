@@ -36,7 +36,7 @@
             this.lblFiltrarAvanzado = new System.Windows.Forms.Label();
             this.cboCampo = new System.Windows.Forms.ComboBox();
             this.cboCriterio = new System.Windows.Forms.ComboBox();
-            this.txtFiltro = new System.Windows.Forms.TextBox();
+            this.txtFiltrarAvanzado = new System.Windows.Forms.TextBox();
             this.txtFiltrarSimple = new System.Windows.Forms.TextBox();
             this.lblFiltrarSimple = new System.Windows.Forms.Label();
             this.btnFiltrarAvanzado = new System.Windows.Forms.Button();
@@ -120,12 +120,12 @@
             this.cboCriterio.Size = new System.Drawing.Size(121, 21);
             this.cboCriterio.TabIndex = 7;
             // 
-            // txtFiltro
+            // txtFiltrarAvanzado
             // 
-            this.txtFiltro.Location = new System.Drawing.Point(42, 409);
-            this.txtFiltro.Name = "txtFiltro";
-            this.txtFiltro.Size = new System.Drawing.Size(121, 20);
-            this.txtFiltro.TabIndex = 8;
+            this.txtFiltrarAvanzado.Location = new System.Drawing.Point(42, 409);
+            this.txtFiltrarAvanzado.Name = "txtFiltrarAvanzado";
+            this.txtFiltrarAvanzado.Size = new System.Drawing.Size(121, 20);
+            this.txtFiltrarAvanzado.TabIndex = 8;
             // 
             // txtFiltrarSimple
             // 
@@ -152,6 +152,7 @@
             this.btnFiltrarAvanzado.TabIndex = 11;
             this.btnFiltrarAvanzado.Text = "Buscar";
             this.btnFiltrarAvanzado.UseVisualStyleBackColor = true;
+            this.btnFiltrarAvanzado.Click += new System.EventHandler(this.btnFiltrarAvanzado_Click);
             // 
             // frmArticulos
             // 
@@ -161,7 +162,7 @@
             this.Controls.Add(this.btnFiltrarAvanzado);
             this.Controls.Add(this.lblFiltrarSimple);
             this.Controls.Add(this.txtFiltrarSimple);
-            this.Controls.Add(this.txtFiltro);
+            this.Controls.Add(this.txtFiltrarAvanzado);
             this.Controls.Add(this.cboCriterio);
             this.Controls.Add(this.cboCampo);
             this.Controls.Add(this.lblFiltrarAvanzado);
@@ -190,7 +191,7 @@
         private System.Windows.Forms.Label lblFiltrarAvanzado;
         private System.Windows.Forms.ComboBox cboCampo;
         private System.Windows.Forms.ComboBox cboCriterio;
-        private System.Windows.Forms.TextBox txtFiltro;
+        private System.Windows.Forms.TextBox txtFiltrarAvanzado;
         private System.Windows.Forms.TextBox txtFiltrarSimple;
         private System.Windows.Forms.Label lblFiltrarSimple;
         private System.Windows.Forms.Button btnFiltrarAvanzado;

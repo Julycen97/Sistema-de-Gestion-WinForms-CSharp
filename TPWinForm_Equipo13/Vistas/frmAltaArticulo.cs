@@ -39,18 +39,17 @@ namespace Vistas
                 articulo.CodArt = txtCodigo.Text;
                 articulo.DescripcionArt = txtDescripcion.Text;
                 articulo.NombreArt = txtNombre.Text;
-                //articulo.MarcaArt = (Marca)cboMarca.SelectedItem;
-                //articulo.CategoriaArt = (Categoria)cboCategoria.SelectedItem;
-
+                articulo.MarcaArt = (Marca)cboMarca.SelectedItem;
+                articulo.CategoriaArt = (Categoria)cboCategoria.SelectedItem;
             }
             else
             {
                 esAgregar = false;
             }
+
             try
             {
-            artNeg.Agregar_ModificarDatos(articulo,esAgregar);
-
+                artNeg.Agregar_ModificarDatos(articulo,esAgregar);
             }
             catch (Exception ex)
             {
@@ -65,14 +64,24 @@ namespace Vistas
 
         private void frmAltaArticulo_Load(object sender, EventArgs e)
         {
-            //MarcaNegocio marcaNegocio = new MarcaNegocio();
-            //CaregoriaNegocio categoriaNegocio = new CategoriaNegocio();
-            //cboMarca.DataSource = MarcaNegocio
-            //cboMarca.ValueMember = "Id"
-            //cboMarca.DisplayMember = "Descripcion"
-            //cboCategoria.DataSource = CategoriaNegocio
-            //cboCategoria.ValueMember = "Id"
-            //cboCategoria.DisplayMember = "Descripcion"
+            MarcaNegocio marcaNegocio = new MarcaNegocio();
+            CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
+
+            try
+            {
+                cboMarca.DataSource = marcaNegocio.ObtenerDatos();
+                cboMarca.ValueMember = "IdMarca";
+                cboMarca.DisplayMember = "NombreMarca";
+
+                cboCategoria.DataSource = categoriaNegocio.ObtenerDatos();
+                cboCategoria.ValueMember = "IdCategoria";
+                cboCategoria.DisplayMember = "NombreCategoria";
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show(ex.ToString());
+            }
         }
     }
 }

@@ -16,7 +16,7 @@ namespace Dominio
 
         public override string ToString()
         {
-            return "Hola";
+            return NombreMarca;
         }
     }
 }

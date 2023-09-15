@@ -29,6 +29,7 @@ namespace Vistas
         private void cargar()
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
+
             try
             {
                 listaArticulos = negocio.ObtenerDatos();                                      // crear funcion listar en   ArticuloNegocio
@@ -44,6 +45,8 @@ namespace Vistas
         {
             frmAltaArticulo frmAltaArticulo = new frmAltaArticulo();
             frmAltaArticulo.ShowDialog();
+
+            cargar();
         }
 
         private void btnModificar_Click(object sender, EventArgs e)

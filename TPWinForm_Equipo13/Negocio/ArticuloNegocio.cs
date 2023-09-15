@@ -17,50 +17,79 @@ namespace Negocio
         //OBTENER TODOS LOS DATOS
         public List<Articulo> ObtenerDatos()
         {
-            AccesoDatos datos = new AccesoDatos();
+            //VARIABLE PARA OBTENCION DE REGISTROS DE ARTICULOS
+            AccesoDatos datosArt = new AccesoDatos();
+            //VARIABLE PARA OBTENCION DE TODAS LAS IMAGENES
+            ImagenNegocio img = new ImagenNegocio();
+            //LISTA PARA ALMACENAR TODAS LAS IMAGENES
+            List<Imagen> listaImg = new List<Imagen>();
 
             try
             {
-                datos.SetearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, M.Descripcion AS Marca, C.Descripcion AS Categoria, Precio FROM ARTICULOS AS A, MARCAS AS M, CATEGORIAS AS C WHERE A.IdMarca = M.Id AND A.IdCategoria = C.Id");
-                datos.AbrirConexionEjecutarConsulta();
+                //CARGA DE LISTA CON TODAS LAS IMAGENES
+                listaImg = img.ObtenerDatos();
 
-                while (datos.Lector.Read())
+                datosArt.SetearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, M.Descripcion AS Marca, A.IdCategoria, C.Descripcion AS Categoria, Precio FROM ARTICULOS AS A, MARCAS AS M, CATEGORIAS AS C WHERE A.IdMarca = M.Id AND A.IdCategoria = C.Id");
+                datosArt.AbrirConexionEjecutarConsulta();
+
+                while (datosArt.Lector.Read())
                 {
                     Articulo aux = new Articulo();
-
-                    aux.ID = (int)datos.Lector["Id"];
-
-                    //CHECK NULL
-                    if (!(datos.Lector["Codigo"] is DBNull))
-                    {
-                        aux.CodArt = (string)datos.Lector["Codigo"];
-                    }
-                    //CHECK NULL
-                    if (!(datos.Lector["Nombre"] is DBNull))
-                    {
-                        aux.NombreArt = (string)datos.Lector["Nombre"];
-                    }
-                    //CHECK NULL
-                    if (!(datos.Lector["Descripcion"] is DBNull))
-                    {
-                        aux.DescripcionArt = (string)datos.Lector["Descripcion"];
-                    }
-                    //CHECK NULL
-                    if (!(datos.Lector["Marca"] is DBNull))
-                    {
-                        aux.MarcaArt.NombreMarca = (string)datos.Lector["Marca"];
-                    }
-                    //CHECK NULL
-                    if (!(datos.Lector["Categoria"] is DBNull))
-                    {
-                        aux.CategoriaArt.NombreCategoria = (string)datos.Lector["Categoria"];
-                    }
-                    //CHECK NULL
-                    if (!(datos.Lector["Precio"] is DBNull))
-                    {
-                        aux.PrecioArt = (decimal)datos.Lector["Precio"];
-                    }
                     
+                    //NO SE CHEQUEA NULIDAD POR QUE NO ACEPTA VALORES NULOS
+                    aux.ID = (int)datosArt.Lector["Id"];
+
+                    //CHECK NULL
+                    if (!(datosArt.Lector["Codigo"] is DBNull))
+                    {
+                        aux.CodArt = (string)datosArt.Lector["Codigo"];
+                    }
+                    //CHECK NULL
+                    if (!(datosArt.Lector["Nombre"] is DBNull))
+                    {
+                        aux.NombreArt = (string)datosArt.Lector["Nombre"];
+                    }
+                    //CHECK NULL
+                    if (!(datosArt.Lector["Descripcion"] is DBNull))
+                    {
+                        aux.DescripcionArt = (string)datosArt.Lector["Descripcion"];
+                    }
+                    //CHECK NULL
+                    if (!(datosArt.Lector["IdMarca"] is DBNull))
+                    {
+                        aux.MarcaArt.IdMarca = (int)datosArt.Lector["IdMarca"];
+                    }
+                    //CHECK NULL
+                    if (!(datosArt.Lector["Marca"] is DBNull))
+                    {
+                        aux.MarcaArt.NombreMarca = (string)datosArt.Lector["Marca"];
+                    }
+                    //CHECK NULL
+                    if(!(datosArt.Lector["IdCategoria"] is DBNull))
+                    {
+                        aux.CategoriaArt.IdCategoria = (int)datosArt.Lector["IdCategoria"];
+                    }
+                    //CHECK NULL
+                    if (!(datosArt.Lector["Categoria"] is DBNull))
+                    {
+                        aux.CategoriaArt.NombreCategoria = (string)datosArt.Lector["Categoria"];
+                    }
+                    //CHECK NULL
+                    if (!(datosArt.Lector["Precio"] is DBNull))
+                    {
+                        aux.PrecioArt = (decimal)datosArt.Lector["Precio"];
+                    }
+
+                    //RECORRE TODAS LAS IMAGENES Y LAS AGREGA EN CASO DE COINCIDIR CON MISMO ID
+                    foreach (Imagen x in listaImg)
+                    {
+                        if(x.IdArt == aux.ID)
+                        {
+                            //IMAGENART ES UNA LISTA DE IMAGENES EN ARTICULOS
+                            aux.ImagenArt.Add(x);
+                        }
+                    }
+
                     articulos.Add(aux);
                 }
 
@@ -72,9 +101,8 @@ namespace Negocio
             }
             finally
             {
-                datos.CerrarConexion();
+                datosArt.CerrarConexion();
             }
-
         }
 
         //AGREGAR O MODIFICAR DECIDIENDO POR BANDERA BOOLEANA

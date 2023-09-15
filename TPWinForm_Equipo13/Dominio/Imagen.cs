@@ -12,7 +12,7 @@ namespace Dominio
         [DisplayName("ID")]
         public int IdImagen { get; set; }
         [DisplayName("ID de Articulo")]
-        public int CodArt { get; set; }
+        public int IdArt { get; set; }
         [DisplayName("URL Imagen")]
         public string URLImagen { get; set; }
     }

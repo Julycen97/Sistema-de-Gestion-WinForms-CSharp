@@ -26,7 +26,7 @@ namespace Vistas
             cargar();
 
             //ITEMS DEL CAMPO FILTRO AVANZADO
-            cboCampo.Items.Add("Codigo");
+            cboCampo.Items.Add("Nombre");
             cboCampo.Items.Add("Marca");
             cboCampo.Items.Add("Categoria");
             cboCampo.Items.Add("Precio");
@@ -120,7 +120,7 @@ namespace Vistas
             }
         }
 
-        private void btnFiltrarAvanzado_Click(object sender, EventArgs e)
+        private void btnFiltrarAvanzado_Click(object sender, EventArgs e)                   // falta validar ingreso de datos
         {
             ArticuloNegocio negocio = new ArticuloNegocio();
             try

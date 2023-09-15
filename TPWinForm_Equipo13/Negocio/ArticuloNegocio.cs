@@ -171,9 +171,107 @@ namespace Negocio
         public List<Articulo> filtrar(string campo, string criterio, string filtro)
         {
             List<Articulo> lista = new List<Articulo>();
-            AccesoDatos datos = new AccesoDatos();
+            AccesoDatos datosArt = new AccesoDatos();
 
-            return lista;
+            try
+            {
+                string consulta = "SELECT A.Nombre Nombre, M.Descripcion Marca, C.Descripcion Categoria, Precio FROM ARTICULOS A INNER JOIN MARCAS M ON M.Id = A.IdMarca INNER JOIN CATEGORIAS C ON C.Id = A.IdCategoria WHERE ";
+
+                switch (campo)
+                {
+                    case "Nombre":
+                        consulta += "A.Nombre LIKE ";
+
+                        switch (criterio)
+                        {
+                            case "Comienza con":
+                                consulta += "'" + filtro + "%'";
+                                break;
+                            case "Termina con":
+                                consulta += "'%" + filtro + "'";
+                                break;
+                            case "Contiene":
+                                consulta += "'%" + filtro + "%'";
+                                break;
+                        }
+                        break;
+                    case "Marca":
+                        consulta += "M.Descripcion LIKE ";
+                        
+                        switch (criterio)
+                        {
+                            case "Comienza con":
+                                consulta += "'" + filtro + "%'";
+                                break;
+                            case "Termina con":
+                                consulta += "'%" + filtro + "'"; 
+                                break;
+                            case "Contiene":
+                                consulta += "'%" + filtro + "%'";
+                                break;
+                        }
+                        break;
+                    case "Categoria":
+                        consulta += "C.Descripcion LIKE ";
+                        
+                        switch (criterio)
+                        {
+                            case "Comienza con":
+                                consulta += "'" + filtro + "%'";
+                                break;
+                            case "Termina con":
+                                consulta += "'%" + filtro + "'";
+                                break;
+                            case "Contiene":
+                                consulta += "'%" + filtro + "%'";
+                                break;
+                        }
+                        break;
+                    case "Precio":
+                        consulta += "Precio ";
+                        
+                        switch (criterio)
+                        {
+                            case "Mayor a":
+                                consulta += "> " + filtro;
+                                break;
+                            case "Menor a":
+                                consulta += "< " + filtro;
+                                break;
+                            case "Igual a":
+                                consulta += "= " + filtro;
+                                break;
+                            default:
+                                break;
+                        }
+                        break;
+                    
+                }
+
+                datosArt.SetearConsulta(consulta);
+                datosArt.AbrirConexionEjecutarConsulta();
+
+                while (datosArt.Lector.Read())
+                {
+                    Articulo aux = new Articulo();
+
+                    //aux.ID = (int)datosArt.Lector["Id"];
+                    aux.NombreArt = (string)datosArt.Lector["Nombre"];
+                    aux.MarcaArt.NombreMarca = (string)datosArt.Lector["Marca"];
+                    aux.CategoriaArt.NombreCategoria = (string)datosArt.Lector["Categoria"];
+                    aux.PrecioArt = (decimal)datosArt.Lector["Precio"];
+
+                    lista.Add(aux);
+                }
+
+                return lista;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
     }
 }

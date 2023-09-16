@@ -88,23 +88,23 @@ namespace Vistas
                     {
                         MessageBox.Show("Registro agregado exitosamente!");
 
-                        //imagen.IdArt = idUltimoArt();
+                        //imagen.IdArt = idUltimoArt();                             // comentado para agregar multiples img
 
                         int idArticulo = idUltimoArt();
 
-                        foreach (Imagen item in imagenes)
+                        foreach (Imagen item in imagenes)                                        // NUEVO PARA CARGAR MULTIPLES IMAGENES agrega idarticulo a cada obj de la lista
                         {
                             item.IdImagen = idArticulo;
                         }
 
-                        //imagen.URLImagen = txtImagenes.Text;
+                        //imagen.URLImagen = txtImagenes.Text;                      // comentado para agregar multiples img
 
-                        foreach (Imagen item in imagenes)
+                        foreach (Imagen item in imagenes)                                   // NUEVO PARA CARGAR MULTIPLES IMAGENES agrega la lista item por item (nose si es la mejor forma pero si la hacemos andar puede ir)
                         {
                             imgNeg.Agregar_ModificarDatos(item, esAgregar);
                         }
 
-                        //imgNeg.Agregar_ModificarDatos(imagen, esAgregar);
+                        //imgNeg.Agregar_ModificarDatos(imagen, esAgregar);         // comentado para agregar multiples imagenes
                     }
                     else
                     {
@@ -210,7 +210,7 @@ namespace Vistas
             }
         }
 
-        private void btnAgregarImagen_Click(object sender, EventArgs e)
+        private void btnAgregarImagen_Click(object sender, EventArgs e)          // NUEVO PARA AGREGAR MULTIPLES IMG
         {
             try
             {

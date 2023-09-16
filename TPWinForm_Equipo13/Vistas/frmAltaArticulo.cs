@@ -212,10 +212,14 @@ namespace Vistas
         {
             try
             {
+                    //Primero agrega la imagen a la lista de imagenes del articulo
                 Imagen nuevaImg = new Imagen();
                 nuevaImg.URLImagen = txtImagenes.Text;
                 nuevaImg.IdArt = articulo.ID;
                 imagenes.Add(nuevaImg);
+
+                    //Luego agrega la imagen a la base de datos, validando si la URL es una imagen
+                    //si no es imagen tira error y borra el contenido del txtImagenes
                 bool esAgregar = true;
                 ImagenNegocio imgNeg = new ImagenNegocio();
                 try
@@ -225,6 +229,7 @@ namespace Vistas
                 catch (Exception)
                 {
                     MessageBox.Show("Error en la carga de la imagen");
+                    txtImagenes.Text = string.Empty;
                     return;
                     
                 }

@@ -124,22 +124,39 @@ namespace Vistas
             }
         }
 
-        private void btnFiltrarAvanzado_Click(object sender, EventArgs e)                   // falta validar ingreso de datos
+        private void btnFiltrarAvanzado_Click(object sender, EventArgs e)
         {
-            ArticuloNegocio negocio = new ArticuloNegocio();
+            if (cboCampo.SelectedItem == null || cboCriterio.SelectedItem == null)
+            {
+                MessageBox.Show("Error: Debes seleccionar campos y criterios válidos.");
+                return;
+            }
+         
+            if (cboCampo.SelectedItem.ToString() == "Precio")
+            {
+                if (!float.TryParse(txtFiltrarAvanzado.Text, out float resultado))
+                {
+                    MessageBox.Show("Error: El campo 'Precio' debe ser un número válido.");
+                    return; 
+                }
+            }
+
             try
             {
                 string campo = cboCampo.SelectedItem.ToString();
                 string criterio = cboCriterio.SelectedItem.ToString();
                 string filtro = txtFiltrarAvanzado.Text;
-                dgvArticulos.DataSource = negocio.filtrar(campo, criterio, filtro);
 
+                ArticuloNegocio negocio = new ArticuloNegocio();
+                dgvArticulos.DataSource = negocio.filtrar(campo, criterio, filtro);
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
             }
         }
+
+
 
         private void btnEliminar_Click(object sender, EventArgs e)
         {

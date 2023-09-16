@@ -36,50 +36,65 @@ namespace Vistas
             ArticuloNegocio artNeg = new ArticuloNegocio();
             ImagenNegocio imgNeg = new ImagenNegocio();
 
-            if (articulo == null)
+            if (string.IsNullOrEmpty(txtCodigo.Text) ||
+                 string.IsNullOrEmpty(txtDescripcion.Text) ||
+                 string.IsNullOrEmpty(txtNombre.Text) ||
+                 cboMarca.SelectedItem == null ||
+                 cboCategoria.SelectedItem == null ||
+                  string.IsNullOrEmpty(txtPrecio.Text) ||
+                  !float.TryParse(txtPrecio.Text, out float precio))
             {
-                articulo = new Articulo();
-                esAgregar = true;
-                articulo.CodArt = txtCodigo.Text;
-                articulo.DescripcionArt = txtDescripcion.Text;
-                articulo.NombreArt = txtNombre.Text;
-                articulo.MarcaArt = (Marca)cboMarca.SelectedItem;
-                articulo.CategoriaArt = (Categoria)cboCategoria.SelectedItem;
-                articulo.PrecioArt = (decimal)float.Parse(txtPrecio.Text);
-                // falta mandar imagen
-
-
+                MessageBox.Show("Error: Todos los campos deben completarse con datos válidos");
+                Close();
             }
             else
             {
-                esAgregar = false;
-                articulo.CodArt = txtCodigo.Text;
-                articulo.DescripcionArt = txtDescripcion.Text;
-                articulo.NombreArt = txtNombre.Text;
-                articulo.MarcaArt = (Marca)cboMarca.SelectedItem;
-                articulo.CategoriaArt = (Categoria)cboCategoria.SelectedItem;
-                articulo.PrecioArt = (decimal)float.Parse(txtPrecio.Text);
-            }
 
-            try
-            {
-                artNeg.Agregar_ModificarDatos(articulo, esAgregar);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-            if (esAgregar)
-            {
-                MessageBox.Show("Registro agregado exitosamente!");
-            }
-            else
-            {
-            MessageBox.Show("Registro modificado exitosamente!");
+                try
+                {
+                    if (articulo == null)
+                    {
+                        articulo = new Articulo();
+                        esAgregar = true;
+                        articulo.CodArt = txtCodigo.Text;
+                        articulo.DescripcionArt = txtDescripcion.Text;
+                        articulo.NombreArt = txtNombre.Text;
+                        articulo.MarcaArt = (Marca)cboMarca.SelectedItem;
+                        articulo.CategoriaArt = (Categoria)cboCategoria.SelectedItem;
+                        articulo.PrecioArt = (decimal)float.Parse(txtPrecio.Text);
+                        // falta mandar imagen
+
+
+                    }
+                    else
+                    {
+                        esAgregar = false;
+                        articulo.CodArt = txtCodigo.Text;
+                        articulo.DescripcionArt = txtDescripcion.Text;
+                        articulo.NombreArt = txtNombre.Text;
+                        articulo.MarcaArt = (Marca)cboMarca.SelectedItem;
+                        articulo.CategoriaArt = (Categoria)cboCategoria.SelectedItem;
+                        articulo.PrecioArt = (decimal)float.Parse(txtPrecio.Text);
+                    }
+
+                    artNeg.Agregar_ModificarDatos(articulo, esAgregar);
+
+                    if (esAgregar)
+                    {
+                        MessageBox.Show("Registro agregado exitosamente!");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Registro modificado exitosamente!");
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
             }
             Close();
-
-
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)

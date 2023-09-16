@@ -88,7 +88,6 @@ namespace Vistas
             frmDetalleArticulo verDetalle = new frmDetalleArticulo(seleccionado);
 
             verDetalle.ShowDialog();
-
         }
 
         //FILTRO SIMPLE

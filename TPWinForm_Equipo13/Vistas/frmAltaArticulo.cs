@@ -16,7 +16,7 @@ namespace Vistas
     {
         private Articulo articulo = null;
 
-        private Imagen imagen = null;
+        private Imagen imagen = new Imagen();
 
         public frmAltaArticulo()
         {
@@ -85,6 +85,11 @@ namespace Vistas
                     if (esAgregar)
                     {
                         MessageBox.Show("Registro agregado exitosamente!");
+
+                        imagen.IdArt = idUltimoArt();
+                        imagen.URLImagen = txtImagenes.Text;
+
+                        imgNeg.Agregar_ModificarDatos(imagen, esAgregar);
                     }
                     else
                     {
@@ -99,6 +104,32 @@ namespace Vistas
             }
 
             Close();
+        }
+        private int idUltimoArt()
+        {
+            AccesoDatos dato = new AccesoDatos();
+            int id = 0;
+
+            try
+            {
+                dato.SetearConsulta("SELECT TOP 1 Id FROM ARTICULOS ORDER BY Id DESC");
+                dato.AbrirConexionEjecutarConsulta();
+
+                while (dato.Lector.Read())
+                {
+                    id = (int)dato.Lector["Id"];
+                }
+
+                return id;
+            }
+            catch(Exception ex)
+            {
+                return 0;
+            }
+            finally
+            {
+                dato.CerrarConexion();
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -133,10 +164,7 @@ namespace Vistas
 
                     try
                     {
-                        //SE LE ASIGNA AL TEXTBOX DE LA URL DE LA IMAGEN, LA URL DE LA
-                        //PRIMER COINCIDENCIA QUE ENCUENTRE DENTRO DE LA LISTA DE IMAGENES
-                        //DEL ARTICULO Y LA CARGA A PICTUREBOX 
-                        txtImagenes.Text = articulo.ImagenArt.Find(x => x.IdArt == articulo.ID).URLImagen;
+                        txtImagenes.Text = articulo.ImagenArt[0].URLImagen;
                         pbxImagen.Load(txtImagenes.Text);
                     }
                     catch (Exception)

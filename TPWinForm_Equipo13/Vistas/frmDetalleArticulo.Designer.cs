@@ -50,9 +50,11 @@
             // 
             // pbImagen
             // 
+            this.pbImagen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.pbImagen.Location = new System.Drawing.Point(329, 39);
             this.pbImagen.Name = "pbImagen";
             this.pbImagen.Size = new System.Drawing.Size(300, 300);
+            this.pbImagen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.pbImagen.TabIndex = 0;
             this.pbImagen.TabStop = false;
             // 
@@ -79,6 +81,7 @@
             // 
             this.txtPrecio.Location = new System.Drawing.Point(122, 246);
             this.txtPrecio.Name = "txtPrecio";
+            this.txtPrecio.ReadOnly = true;
             this.txtPrecio.Size = new System.Drawing.Size(156, 20);
             this.txtPrecio.TabIndex = 31;
             // 
@@ -86,6 +89,7 @@
             // 
             this.txtDescripcion.Location = new System.Drawing.Point(123, 107);
             this.txtDescripcion.Name = "txtDescripcion";
+            this.txtDescripcion.ReadOnly = true;
             this.txtDescripcion.Size = new System.Drawing.Size(156, 20);
             this.txtDescripcion.TabIndex = 29;
             // 
@@ -93,6 +97,7 @@
             // 
             this.txtNombre.Location = new System.Drawing.Point(123, 73);
             this.txtNombre.Name = "txtNombre";
+            this.txtNombre.ReadOnly = true;
             this.txtNombre.Size = new System.Drawing.Size(156, 20);
             this.txtNombre.TabIndex = 28;
             // 
@@ -100,6 +105,7 @@
             // 
             this.txtCodigo.Location = new System.Drawing.Point(122, 39);
             this.txtCodigo.Name = "txtCodigo";
+            this.txtCodigo.ReadOnly = true;
             this.txtCodigo.Size = new System.Drawing.Size(156, 20);
             this.txtCodigo.TabIndex = 27;
             // 
@@ -179,6 +185,7 @@
             // 
             this.txtMarca.Location = new System.Drawing.Point(122, 141);
             this.txtMarca.Name = "txtMarca";
+            this.txtMarca.ReadOnly = true;
             this.txtMarca.Size = new System.Drawing.Size(156, 20);
             this.txtMarca.TabIndex = 34;
             // 
@@ -186,6 +193,7 @@
             // 
             this.txtCategoria.Location = new System.Drawing.Point(123, 175);
             this.txtCategoria.Name = "txtCategoria";
+            this.txtCategoria.ReadOnly = true;
             this.txtCategoria.Size = new System.Drawing.Size(156, 20);
             this.txtCategoria.TabIndex = 35;
             // 

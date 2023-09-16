@@ -56,7 +56,7 @@ namespace Negocio
                 //SI ES TRUE AGREGA
                 if (esAgregar)
                 {
-                    datos.SetearConsulta("INSERT INTO IMAGENES (IdArticulo, ImagenURL) VAUES (@IdArt, @URLImagen)");
+                    datos.SetearConsulta("INSERT INTO IMAGENES (IdArticulo, ImagenURL) VALUES (@IdArt, @URLImagen)");
                 }
                 //SI ES FALSE MODIFICA
                 else
@@ -66,6 +66,7 @@ namespace Negocio
                     //UPDATE EN EL WHERE
                     datos.SetearParametro("@Id", aux.IdImagen);
                 }
+
                 datos.SetearParametro("@IdArt", aux.IdArt);
                 datos.SetearParametro("@URLImagen", aux.URLImagen);
 

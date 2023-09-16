@@ -19,16 +19,11 @@ namespace Negocio
         {
             //VARIABLE PARA OBTENCION DE REGISTROS DE ARTICULOS
             AccesoDatos datosArt = new AccesoDatos();
-            //VARIABLE PARA OBTENCION DE TODAS LAS IMAGENES
-            ImagenNegocio img = new ImagenNegocio();
-            //LISTA PARA ALMACENAR TODAS LAS IMAGENES
-            List<Imagen> listaImg = new List<Imagen>();
 
             try
             {
-                //CARGA DE LISTA CON TODAS LAS IMAGENES
 
-                datosArt.SetearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, M.Descripcion AS Marca, A.IdCategoria, C.Descripcion AS Categoria, Precio FROM ARTICULOS AS A, MARCAS AS M, CATEGORIAS AS C WHERE A.IdMarca = M.Id AND A.IdCategoria = C.Id");
+                datosArt.SetearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, M.Descripcion AS Marca, A.IdCategoria, C.Descripcion AS Categoria, Precio FROM ARTICULOS AS A LEFT JOIN MARCAS AS M ON A.IdMarca = M.Id LEFT JOIN CATEGORIAS AS C ON A.IdCategoria = C.Id");
                 datosArt.AbrirConexionEjecutarConsulta();
 
                 while (datosArt.Lector.Read())
@@ -43,51 +38,90 @@ namespace Negocio
                     {
                         aux.CodArt = (string)datosArt.Lector["Codigo"];
                     }
+                    else
+                    {
+                        //ASIGNACION POR DEFECTO
+                        aux.CodArt = " ";
+                    }
+
                     //CHECK NULL
                     if (!(datosArt.Lector["Nombre"] is DBNull))
                     {
                         aux.NombreArt = (string)datosArt.Lector["Nombre"];
                     }
+                    else
+                    {
+                        //ASIGNACION POR DEFECTO
+                        aux.NombreArt = " ";
+                    }
+
                     //CHECK NULL
                     if (!(datosArt.Lector["Descripcion"] is DBNull))
                     {
                         aux.DescripcionArt = (string)datosArt.Lector["Descripcion"];
                     }
+                    else
+                    {
+                        //ASIGNACION POR DEFECTO
+                        aux.DescripcionArt = " ";
+                    }
+
                     //CHECK NULL
                     if (!(datosArt.Lector["IdMarca"] is DBNull))
                     {
                         aux.MarcaArt.IdMarca = (int)datosArt.Lector["IdMarca"];
                     }
+                    else
+                    {
+                        //ASIGNACION POR DEFECTO
+                        aux.MarcaArt.IdMarca = 0;
+                    }
+
                     //CHECK NULL
                     if (!(datosArt.Lector["Marca"] is DBNull))
                     {
                         aux.MarcaArt.NombreMarca = (string)datosArt.Lector["Marca"];
                     }
+                    else
+                    {
+                        //ASIGNACION POR DEFECTO
+                        aux.MarcaArt.NombreMarca = "S/M";
+                    }
+
                     //CHECK NULL
-                    if(!(datosArt.Lector["IdCategoria"] is DBNull))
+                    if (!(datosArt.Lector["IdCategoria"] is DBNull))
                     {
                         aux.CategoriaArt.IdCategoria = (int)datosArt.Lector["IdCategoria"];
                     }
+                    else
+                    {
+                        //ASIGNACION POR DEFECTO
+                        aux.CategoriaArt.IdCategoria = 0;
+                    }
+
                     //CHECK NULL
                     if (!(datosArt.Lector["Categoria"] is DBNull))
                     {
                         aux.CategoriaArt.NombreCategoria = (string)datosArt.Lector["Categoria"];
                     }
+                    else
+                    {
+                        //ASIGNACION POR DEFECTO
+                        aux.CategoriaArt.NombreCategoria = "S/C";
+                    }
+
                     //CHECK NULL
                     if (!(datosArt.Lector["Precio"] is DBNull))
                     {
                         aux.PrecioArt = (decimal)datosArt.Lector["Precio"];
                     }
-
-                    //RECORRE TODAS LAS IMAGENES Y LAS AGREGA EN CASO DE COINCIDIR CON MISMO ID
-                    /*foreach (Imagen x in listaImg)
+                    else
                     {
-                        if(x.IdArt == aux.ID)
-                        {
-                            //IMAGENART ES UNA LISTA DE IMAGENES EN ARTICULOS
-                            aux.ImagenArt.Add(x);
-                        }
-                    }*/
+                        //ASIGNACION POR DEFECTO
+                        aux.PrecioArt = 0;
+                    }
+
+
                     aux.ImagenArt = ObtenerImagenes(aux);
 
                     articulos.Add(aux);
@@ -105,25 +139,15 @@ namespace Negocio
             }
         }
 
-        public List<Imagen> ObtenerImagenes(Articulo articulo)
+        //MÉTODO OBTENER IMAGENES DE UN ARTICULO
+        private List<Imagen> ObtenerImagenes(Articulo articulo)
         {
             ImagenNegocio imagenNegocio = new ImagenNegocio();
-            List<Imagen> listaImagenes = new List<Imagen>();
             List<Imagen> aux = new List<Imagen>();
 
             aux = imagenNegocio.ObtenerDatos();
 
-
-            foreach (Imagen x in aux)
-            {
-                if (x.IdArt == articulo.ID)
-                {
-                    //IMAGENART ES UNA LISTA DE IMAGENES EN ARTICULOS
-                    listaImagenes.Add(x);
-                }
-            }
-
-            return listaImagenes;
+            return aux.FindAll(x => x.IdArt == articulo.ID);
         }
 
         //AGREGAR O MODIFICAR DECIDIENDO POR BANDERA BOOLEANA
@@ -189,6 +213,7 @@ namespace Negocio
             }
         }
 
+        //MÉTODO FILTRO AVANZADO (PEGARLE CHUSEMADA)
         public List<Articulo> filtrar(string campo, string criterio, string filtro)
         {
             List<Articulo> lista = new List<Articulo>();
@@ -287,12 +312,15 @@ namespace Negocio
 
                 return lista;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
-
+            finally
+            {
+                datosArt.CerrarConexion();
+            }
         }
     }
 }

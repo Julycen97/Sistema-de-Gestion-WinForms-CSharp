@@ -14,7 +14,7 @@ namespace Vistas
 {
     public partial class frmArticulos : Form
     {
-        private List<Articulo> listaArticulos;
+        private List<Articulo> listaArticulos = new List<Articulo>();
 
         public frmArticulos()
         {
@@ -40,7 +40,9 @@ namespace Vistas
             try
             {
                 listaArticulos = negocio.ObtenerDatos();
+
                 dgvArticulos.DataSource = listaArticulos;
+
                 ocultarColumnas();
             }
             catch (Exception ex)
@@ -52,6 +54,7 @@ namespace Vistas
         private void btnAgregar_Click(object sender, EventArgs e)
         {
             frmAltaArticulo frmAltaArticulo = new frmAltaArticulo();
+
             frmAltaArticulo.ShowDialog();
 
             cargar();
@@ -59,26 +62,31 @@ namespace Vistas
 
         private void btnModificar_Click(object sender, EventArgs e)
         {
-            Articulo articulo = new Articulo();
-            articulo = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+            Articulo articulo = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+
             frmAltaArticulo frmAltaArticulo = new frmAltaArticulo(articulo);
+
             frmAltaArticulo.ShowDialog();
+
             cargar();
         }
     
+        //QUE RECIBA UN STRING Y LO PONGA NO VISIBLE (LLAMAR PARA OCULTAR POR COLUMNA)
         private void ocultarColumnas()
         {
             dgvArticulos.Columns["Id"].Visible = false;
+
             dgvArticulos.Columns["CodArt"].Visible = false;
 
         }
 
+        //VENTANA VER DETALLE 
         private void btnVerDetalle_Click(object sender, EventArgs e)
         {
-            Articulo seleccionado;
-            seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+            Articulo seleccionado = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
 
             frmDetalleArticulo verDetalle = new frmDetalleArticulo(seleccionado);
+
             verDetalle.ShowDialog();
 
         }
@@ -87,6 +95,7 @@ namespace Vistas
         private void txtFiltrarSimple_TextChanged(object sender, EventArgs e)
         {
             List<Articulo> listaFiltrada;
+
             string filtro = txtFiltrarSimple.Text;
 
             if (filtro.Length >= 2)
@@ -100,7 +109,8 @@ namespace Vistas
 
             dgvArticulos.DataSource = null;
             dgvArticulos.DataSource = listaFiltrada;
-            //ocultarColumnas();
+
+            ocultarColumnas();
         }
 
         //FILTRO AVANZADO
@@ -124,6 +134,7 @@ namespace Vistas
             }
         }
 
+        //FILTRO AVANZADO
         private void btnFiltrarAvanzado_Click(object sender, EventArgs e)
         {
             if (cboCampo.SelectedItem == null || cboCriterio.SelectedItem == null)
@@ -137,6 +148,7 @@ namespace Vistas
                 if (!float.TryParse(txtFiltrarAvanzado.Text, out float resultado))
                 {
                     MessageBox.Show("Error: El campo 'Precio' debe ser un número válido.");
+
                     return; 
                 }
             }
@@ -148,6 +160,7 @@ namespace Vistas
                 string filtro = txtFiltrarAvanzado.Text;
 
                 ArticuloNegocio negocio = new ArticuloNegocio();
+
                 dgvArticulos.DataSource = negocio.filtrar(campo, criterio, filtro);
             }
             catch (Exception ex)
@@ -155,7 +168,6 @@ namespace Vistas
                 MessageBox.Show(ex.ToString());
             }
         }
-
 
 
         private void btnEliminar_Click(object sender, EventArgs e)
@@ -167,12 +179,15 @@ namespace Vistas
         {
             ArticuloNegocio articuloNegocio = new ArticuloNegocio();
             Articulo articulo;
+
             try
             {
                 DialogResult respuesta = MessageBox.Show("¿Estás seguro que deseas eliminarlo?", "Eliminado", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                
                 if (respuesta == DialogResult.Yes)
                 {
                     articulo = (Articulo)dgvArticulos.CurrentRow.DataBoundItem;
+
                     articuloNegocio.EliminarDatos(articulo.ID);
                 }
             }
@@ -180,8 +195,11 @@ namespace Vistas
             {
                 MessageBox.Show(ex.ToString());
             }
-            cargar();
+            finally
+            {
+                cargar();
             }
         }
     }
+}
 

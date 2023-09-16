@@ -26,7 +26,9 @@ namespace Vistas
         public frmAltaArticulo(Articulo articulo)
         {
             InitializeComponent();
+
             this.articulo = articulo;
+
             Text = "Modificar Articulo";
         }
 
@@ -39,12 +41,13 @@ namespace Vistas
             if (string.IsNullOrEmpty(txtCodigo.Text) ||
                  string.IsNullOrEmpty(txtDescripcion.Text) ||
                  string.IsNullOrEmpty(txtNombre.Text) ||
-                 cboMarca.SelectedItem == null ||
-                 cboCategoria.SelectedItem == null ||
+                 /*cboMarca.SelectedItem == null ||
+                 cboCategoria.SelectedItem == null ||*/
                   string.IsNullOrEmpty(txtPrecio.Text) ||
                   !float.TryParse(txtPrecio.Text, out float precio))
             {
                 MessageBox.Show("Error: Todos los campos deben completarse con datos válidos");
+
                 Close();
             }
             else
@@ -94,6 +97,7 @@ namespace Vistas
                     MessageBox.Show(ex.ToString());
                 }
             }
+
             Close();
         }
 
@@ -121,33 +125,45 @@ namespace Vistas
                 if (articulo != null)
                 {
                     txtCodigo.Text = articulo.CodArt;
-                    txtDescripcion.Text = articulo.DescripcionArt;
                     txtNombre.Text = articulo.NombreArt;
+                    txtDescripcion.Text = articulo.DescripcionArt;
                     cboMarca.SelectedValue = articulo.MarcaArt.IdMarca;
                     cboCategoria.SelectedValue = articulo.CategoriaArt.IdCategoria;
                     txtPrecio.Text = articulo.PrecioArt.ToString();
-                    // falta precargar una imagen
+
+                    try
+                    {
+                        //SE LE ASIGNA AL TEXTBOX DE LA URL DE LA IMAGEN, LA URL DE LA
+                        //PRIMER COINCIDENCIA QUE ENCUENTRE DENTRO DE LA LISTA DE IMAGENES
+                        //DEL ARTICULO Y LA CARGA A PICTUREBOX 
+                        txtImagenes.Text = articulo.ImagenArt.Find(x => x.IdArt == articulo.ID).URLImagen;
+                        pbxImagen.Load(txtImagenes.Text);
+                    }
+                    catch (Exception)
+                    {
+                        //SI NO PUEDE CARGA UNA POR DEFECTO
+                        pbxImagen.Load("https://images.assetsdelivery.com/compings_v2/pavelstasevich/pavelstasevich1811/pavelstasevich181101028.jpg");
+                    }
                 }
             }
             catch (Exception ex)
             {
-
                 MessageBox.Show(ex.ToString());
             }
         }
 
+        //AGREGAR IMAGEN
         private void btnAgregarImagen_Click(object sender, EventArgs e)
         {
             try
             {
-            pbxImagen.Load(txtImagenes.Text);
+                pbxImagen.Load(txtImagenes.Text);
 
             }
             catch (Exception)
             {
-            pbxImagen.Load("https://images.assetsdelivery.com/compings_v2/pavelstasevich/pavelstasevich1811/pavelstasevich181101028.jpg");
+                pbxImagen.Load("https://images.assetsdelivery.com/compings_v2/pavelstasevich/pavelstasevich1811/pavelstasevich181101028.jpg");
             }
         }
-
     }
 }

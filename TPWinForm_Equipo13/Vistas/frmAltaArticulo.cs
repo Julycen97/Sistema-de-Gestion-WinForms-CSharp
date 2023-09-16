@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -67,9 +68,6 @@ namespace Vistas
                         articulo.MarcaArt = (Marca)cboMarca.SelectedItem;
                         articulo.CategoriaArt = (Categoria)cboCategoria.SelectedItem;
                         articulo.PrecioArt = (decimal)float.Parse(txtPrecio.Text);
-                        // falta mandar imagen
-
-
                     }
                     else
                     {
@@ -138,7 +136,7 @@ namespace Vistas
 
                 return id;
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 return 0;
             }
@@ -180,7 +178,7 @@ namespace Vistas
 
                     try
                     {
-                        txtImagenes.Text = articulo.ImagenArt[0].URLImagen;
+                        //txtImagenes.Text = articulo.ImagenArt[0].URLImagen;
                         pbxImagen.Load(txtImagenes.Text);
                     }
                     catch (Exception)
@@ -216,7 +214,23 @@ namespace Vistas
             {
                 Imagen nuevaImg = new Imagen();
                 nuevaImg.URLImagen = txtImagenes.Text;
+                nuevaImg.IdArt = articulo.ID;
                 imagenes.Add(nuevaImg);
+                bool esAgregar = true;
+                ImagenNegocio imgNeg = new ImagenNegocio();
+                try
+                {
+                pbxImagen.Load(txtImagenes.Text);
+                }
+                catch (Exception)
+                {
+                    MessageBox.Show("Error en la carga de la imagen");
+                    return;
+                    
+                }
+                imgNeg.Agregar_ModificarDatos(nuevaImg, esAgregar);
+                MessageBox.Show("Imagen agregada al articulo codigo: " + articulo.CodArt);
+                txtImagenes.Text = string.Empty;
             }
             catch (Exception ex)
             {

@@ -76,6 +76,7 @@
             this.btnImagenAnterior.TabIndex = 32;
             this.btnImagenAnterior.Text = "<";
             this.btnImagenAnterior.UseVisualStyleBackColor = true;
+            this.btnImagenAnterior.Click += new System.EventHandler(this.btnImagenAnterior_Click);
             // 
             // txtPrecio
             // 
@@ -180,6 +181,7 @@
             this.btnImagenSiguiente.TabIndex = 33;
             this.btnImagenSiguiente.Text = ">";
             this.btnImagenSiguiente.UseVisualStyleBackColor = true;
+            this.btnImagenSiguiente.Click += new System.EventHandler(this.btnImagenSiguiente_Click);
             // 
             // txtMarca
             // 

@@ -105,6 +105,7 @@ namespace Vistas
 
             Close();
         }
+
         private int idUltimoArt()
         {
             AccesoDatos dato = new AccesoDatos();
@@ -181,7 +182,7 @@ namespace Vistas
         }
 
         //AGREGAR IMAGEN
-        private void btnAgregarImagen_Click(object sender, EventArgs e)
+        private void btnVerImagen_Click(object sender, EventArgs e)
         {
             try
             {
@@ -193,5 +194,6 @@ namespace Vistas
                 pbxImagen.Load("https://images.assetsdelivery.com/compings_v2/pavelstasevich/pavelstasevich1811/pavelstasevich181101028.jpg");
             }
         }
+
     }
 }

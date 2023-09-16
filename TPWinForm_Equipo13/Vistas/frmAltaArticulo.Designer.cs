@@ -45,13 +45,14 @@
             this.txtPrecio = new System.Windows.Forms.TextBox();
             this.btnCancelar = new System.Windows.Forms.Button();
             this.pbxImagen = new System.Windows.Forms.PictureBox();
+            this.btnVerImagen = new System.Windows.Forms.Button();
             this.btnAgregarImagen = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pbxImagen)).BeginInit();
             this.SuspendLayout();
             // 
             // btnAceptar
             // 
-            this.btnAceptar.Location = new System.Drawing.Point(105, 309);
+            this.btnAceptar.Location = new System.Drawing.Point(105, 315);
             this.btnAceptar.Name = "btnAceptar";
             this.btnAceptar.Size = new System.Drawing.Size(75, 23);
             this.btnAceptar.TabIndex = 0;
@@ -116,7 +117,7 @@
             // lblPrecio
             // 
             this.lblPrecio.AutoSize = true;
-            this.lblPrecio.Location = new System.Drawing.Point(46, 253);
+            this.lblPrecio.Location = new System.Drawing.Point(46, 277);
             this.lblPrecio.Name = "lblPrecio";
             this.lblPrecio.Size = new System.Drawing.Size(47, 13);
             this.lblPrecio.TabIndex = 7;
@@ -170,14 +171,14 @@
             // 
             // txtPrecio
             // 
-            this.txtPrecio.Location = new System.Drawing.Point(105, 250);
+            this.txtPrecio.Location = new System.Drawing.Point(105, 274);
             this.txtPrecio.Name = "txtPrecio";
             this.txtPrecio.Size = new System.Drawing.Size(156, 20);
             this.txtPrecio.TabIndex = 14;
             // 
             // btnCancelar
             // 
-            this.btnCancelar.Location = new System.Drawing.Point(186, 309);
+            this.btnCancelar.Location = new System.Drawing.Point(186, 315);
             this.btnCancelar.Name = "btnCancelar";
             this.btnCancelar.Size = new System.Drawing.Size(75, 23);
             this.btnCancelar.TabIndex = 15;
@@ -194,22 +195,32 @@
             this.pbxImagen.TabIndex = 16;
             this.pbxImagen.TabStop = false;
             // 
+            // btnVerImagen
+            // 
+            this.btnVerImagen.Location = new System.Drawing.Point(105, 241);
+            this.btnVerImagen.Name = "btnVerImagen";
+            this.btnVerImagen.Size = new System.Drawing.Size(75, 23);
+            this.btnVerImagen.TabIndex = 17;
+            this.btnVerImagen.Text = "Ver";
+            this.btnVerImagen.UseVisualStyleBackColor = true;
+            this.btnVerImagen.Click += new System.EventHandler(this.btnVerImagen_Click);
+            // 
             // btnAgregarImagen
             // 
-            this.btnAgregarImagen.Location = new System.Drawing.Point(265, 211);
+            this.btnAgregarImagen.Location = new System.Drawing.Point(186, 241);
             this.btnAgregarImagen.Name = "btnAgregarImagen";
-            this.btnAgregarImagen.Size = new System.Drawing.Size(66, 23);
-            this.btnAgregarImagen.TabIndex = 17;
-            this.btnAgregarImagen.Text = "Ver Imagen";
+            this.btnAgregarImagen.Size = new System.Drawing.Size(75, 23);
+            this.btnAgregarImagen.TabIndex = 18;
+            this.btnAgregarImagen.Text = "Agregar";
             this.btnAgregarImagen.UseVisualStyleBackColor = true;
-            this.btnAgregarImagen.Click += new System.EventHandler(this.btnAgregarImagen_Click);
             // 
             // frmAltaArticulo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 372);
+            this.ClientSize = new System.Drawing.Size(684, 430);
             this.Controls.Add(this.btnAgregarImagen);
+            this.Controls.Add(this.btnVerImagen);
             this.Controls.Add(this.pbxImagen);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.txtPrecio);
@@ -256,6 +267,7 @@
         private System.Windows.Forms.TextBox txtPrecio;
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.PictureBox pbxImagen;
+        private System.Windows.Forms.Button btnVerImagen;
         private System.Windows.Forms.Button btnAgregarImagen;
     }
 }

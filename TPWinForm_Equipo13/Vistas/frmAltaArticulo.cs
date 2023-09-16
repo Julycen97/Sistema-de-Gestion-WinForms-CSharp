@@ -18,6 +18,8 @@ namespace Vistas
 
         private Imagen imagen = new Imagen();
 
+        private List<Imagen> imagenes = new List<Imagen>();                 // NUEVO PARA AGREGAR MUCHAS IMAGENES
+
         public frmAltaArticulo()
         {
             InitializeComponent();
@@ -86,10 +88,23 @@ namespace Vistas
                     {
                         MessageBox.Show("Registro agregado exitosamente!");
 
-                        imagen.IdArt = idUltimoArt();
-                        imagen.URLImagen = txtImagenes.Text;
+                        //imagen.IdArt = idUltimoArt();
 
-                        imgNeg.Agregar_ModificarDatos(imagen, esAgregar);
+                        int idArticulo = idUltimoArt();
+
+                        foreach (Imagen item in imagenes)
+                        {
+                            item.IdImagen = idArticulo;
+                        }
+
+                        //imagen.URLImagen = txtImagenes.Text;
+
+                        foreach (Imagen item in imagenes)
+                        {
+                            imgNeg.Agregar_ModificarDatos(item, esAgregar);
+                        }
+
+                        //imgNeg.Agregar_ModificarDatos(imagen, esAgregar);
                     }
                     else
                     {
@@ -195,5 +210,18 @@ namespace Vistas
             }
         }
 
+        private void btnAgregarImagen_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Imagen nuevaImg = new Imagen();
+                nuevaImg.URLImagen = txtImagenes.Text;
+                imagenes.Add(nuevaImg);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
     }
 }

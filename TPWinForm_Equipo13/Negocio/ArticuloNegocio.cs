@@ -173,11 +173,52 @@ namespace Negocio
                     datos.SetearParametro("@IdArt", aux.ID);
                 }
 
-                datos.SetearParametro("@Codigo", aux.CodArt);
-                datos.SetearParametro("@Nombre", aux.NombreArt);
-                datos.SetearParametro("@Descripcion", aux.DescripcionArt);
-                datos.SetearParametro("@IdMarca", aux.MarcaArt.IdMarca);
-                datos.SetearParametro("@IdCategoria", aux.CategoriaArt.IdCategoria);
+                if (aux.CodArt != null)
+                {
+                    datos.SetearParametro("@Codigo", aux.CodArt);
+                }
+                else
+                {
+                    datos.SetearParametro("@Codigo", null);
+                }
+
+                if (aux.NombreArt != null)
+                {
+                    datos.SetearParametro("@Nombre", aux.NombreArt);
+                }
+                else
+                {
+                    datos.SetearParametro("@Nombre", null);
+                }
+
+                if(aux.DescripcionArt != null)
+                {
+                    datos.SetearParametro("@Descripcion", aux.DescripcionArt);
+                }
+                else
+                {
+                    datos.SetearParametro("@Descripcion", null);
+                }
+
+
+                if (aux.MarcaArt != null)
+                {
+                    datos.SetearParametro("@IdMarca", aux.MarcaArt.IdMarca);
+                }
+                else
+                {
+                    datos.SetearParametro("@IdMarca", null);
+                }
+
+                if (aux.CategoriaArt != null)
+                {
+                    datos.SetearParametro("@IdCategoria", aux.CategoriaArt.IdCategoria);
+                }
+                else
+                {
+                    datos.SetearParametro("@IdCategoria", null);
+                }
+
                 datos.SetearParametro("@Precio", aux.PrecioArt);
 
                 datos.AbrirConexionEjecutarAccion();

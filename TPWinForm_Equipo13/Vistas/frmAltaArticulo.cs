@@ -76,7 +76,7 @@ namespace Vistas
             CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
 
             //BOTON AGREGAR NO VISIBLE HASTA QUE SE CARGUE UNA IMAGEN VALIDA
-            btnAgregarImagen.Visible = true;
+            btnAgregarImagen.Visible = false;
 
             try
             {
@@ -136,32 +136,53 @@ namespace Vistas
         {
             ImagenNegocio imgNeg = new ImagenNegocio();
 
-            if (articulo != null)
+            try
             {
-                imagen.IdArt = articulo.ID;
-                imagen.URLImagen = txtImagenes.Text;               
+                pbxImagen.Load(txtImagenes.Text);
 
-                imgNeg.Agregar_ModificarDatos(imagen, true);
+                if (articulo != null)
+                {
+                    imagen.IdArt = articulo.ID;
+                    imagen.URLImagen = txtImagenes.Text;
 
-                MessageBox.Show("Imagen agregada al articulo ID: " + articulo.ID);
+                    imgNeg.Agregar_ModificarDatos(imagen, true);
 
+                    MessageBox.Show("Imagen agregada al articulo ID: " + articulo.ID);
+
+                    txtImagenes.Text = string.Empty;
+
+                    //HACE NO VISIBLE EL BOTON AGREGAR SI CARGO BIEN LA IMAGEN
+                    btnAgregarImagen.Visible = false;
+                }
+                else
+                {
+                    imagen = new Imagen();
+                    //ASIGNA URL PARA CUANDO PRESIONE ACEPTAR CARGUE TODAS LAS IMAGENES
+                    //EN EL EVENTO DEL CLICK_BTNACEPTAR
+                    imagen.URLImagen = txtImagenes.Text;
+
+                    //CARGA LA LISTA PARA AGREGAR AL ARTICULO EN EVENTO CLICK_BTNACEPTAR
+                    imagenes.Add(imagen);
+
+                    txtImagenes.Text = string.Empty;
+
+                    MessageBox.Show("Imagen agregada !");
+
+                    //HACE NO VISIBLE EL BOTON AGREGAR SI CARGO BIEN LA IMAGEN
+                    btnAgregarImagen.Visible = false;
+                }
+            }
+            catch (Exception)
+            {
                 txtImagenes.Text = string.Empty;
-
+                pbxImagen.Load("https://images.assetsdelivery.com/compings_v2/pavelstasevich/pavelstasevich1811/pavelstasevich181101028.jpg");
+                MessageBox.Show("Error al cargar la imagen");
                 //HACE NO VISIBLE EL BOTON AGREGAR SI CARGO BIEN LA IMAGEN
                 btnAgregarImagen.Visible = false;
-
-            }
-            else
-            {
-                //ASIGNA URL PARA CUANDO PRESIONE ACEPTAR CARGUE TODAS LAS IMAGENES
-                //EN EL EVENTO DEL CLICK_BTNACEPTAR
-                Imagen nuevaImg = new Imagen();
-                nuevaImg.URLImagen = txtImagenes.Text;
-
-                //CARGA LA LISTA PARA AGREGAR AL ARTICULO EN EVENTO CLICK_BTNACEPTAR
-                imagenes.Add(nuevaImg);
             }
         }
+
+
 
         //EVENTO SE LANZA AL PRESIONAR TECLA EN TEXTBOX
         private void txtPrecio_KeyPress(object sender, KeyPressEventArgs e)
@@ -235,9 +256,9 @@ namespace Vistas
                         MessageBox.Show("Registro modificado exitosamente!");
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    MessageBox.Show(ex.ToString());
+                    MessageBox.Show("Alguno de los campos están sin datos");
                 }
             }
 

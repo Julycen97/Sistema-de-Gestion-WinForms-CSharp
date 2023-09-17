@@ -41,16 +41,11 @@ namespace Vistas
                 txtDescripcion.Text = articulo.DescripcionArt.ToString();
                 txtCategoria.Text = articulo.CategoriaArt.ToString();
                 txtPrecio.Text = articulo.PrecioArt.ToString();
-
                 pbImagen.Load(articulo.ImagenArt[0].URLImagen);
             }
-            catch (WebException)
+            catch (Exception)
             {
                 pbImagen.Load("https://images.assetsdelivery.com/compings_v2/pavelstasevich/pavelstasevich1811/pavelstasevich181101028.jpg");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
             }
         }
 

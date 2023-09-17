@@ -141,6 +141,12 @@ namespace Vistas
                 MessageBox.Show("Error: Debes seleccionar campos y criterios válidos.");
                 return;
             }
+
+            if (string.IsNullOrEmpty(txtFiltrarAvanzado.Text) || txtFiltrarAvanzado.Text == null)
+            {
+                return;
+
+            }
          
             if (cboCampo.SelectedItem.ToString() == "Precio")
             {
@@ -199,6 +205,7 @@ namespace Vistas
                 cargar();
             }
         }
+
     }
 }
 

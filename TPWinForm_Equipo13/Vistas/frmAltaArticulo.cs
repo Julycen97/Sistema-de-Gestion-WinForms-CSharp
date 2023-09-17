@@ -51,7 +51,7 @@ namespace Vistas
             {
                 MessageBox.Show("Error: Todos los campos deben completarse con datos válidos");
 
-                Close();
+                return;
             }
             else
             {

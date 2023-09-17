@@ -220,8 +220,8 @@ namespace Negocio
             AccesoDatos datosArt = new AccesoDatos();
 
             try
-            {
-                string consulta = "SELECT A.Nombre Nombre, M.Descripcion Marca, C.Descripcion Categoria, Precio FROM ARTICULOS A INNER JOIN MARCAS M ON M.Id = A.IdMarca INNER JOIN CATEGORIAS C ON C.Id = A.IdCategoria WHERE ";
+            {                   
+                string consulta = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, M.Descripcion AS Marca, A.IdCategoria, C.Descripcion AS Categoria, Precio FROM ARTICULOS AS A LEFT JOIN MARCAS AS M ON A.IdMarca = M.Id LEFT JOIN CATEGORIAS AS C ON A.IdCategoria = C.Id WHERE ";
 
                 switch (campo)
                 {

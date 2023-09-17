@@ -34,81 +34,6 @@ namespace Vistas
 
             Text = "Modificar Articulo";
         }
-        //VER
-        private void btnAceptar_Click(object sender, EventArgs e)
-        {
-            bool esAgregar = true;
-            ArticuloNegocio artNeg = new ArticuloNegocio();
-            ImagenNegocio imgNeg = new ImagenNegocio();
-
-            if (string.IsNullOrEmpty(txtCodigo.Text) ||
-                 string.IsNullOrEmpty(txtDescripcion.Text) ||
-                 string.IsNullOrEmpty(txtNombre.Text) ||
-                  string.IsNullOrEmpty(txtPrecio.Text) ||
-                  !float.TryParse(txtPrecio.Text, out float precio))
-            {
-                MessageBox.Show("Error: Todos los campos deben completarse con datos válidos");
-
-                return;
-            }
-            else
-            {
-                try
-                {
-                    if (articulo == null)
-                    {
-                        esAgregar = true;
-                        articulo = new Articulo();
-                    }
-                    else
-                    {
-                        esAgregar = false;
-                    }
-
-                    articulo.CodArt = txtCodigo.Text;
-                    articulo.DescripcionArt = txtDescripcion.Text;
-                    articulo.NombreArt = txtNombre.Text;
-                    articulo.MarcaArt = (Marca)cboMarca.SelectedItem;
-                    articulo.CategoriaArt = (Categoria)cboCategoria.SelectedItem;
-                    articulo.PrecioArt = decimal.Parse(txtPrecio.Text);
-
-                    artNeg.Agregar_ModificarDatos(articulo, esAgregar);
-
-                    if (esAgregar)
-                    {
-                        MessageBox.Show("Registro agregado exitosamente!");
-
-                        //imagen.IdArt = idUltimoArt();                             // comentado para agregar multiples img
-
-                        int idArticulo = idUltimoArt();
-
-                        foreach (Imagen item in imagenes)                                        // NUEVO PARA CARGAR MULTIPLES IMAGENES agrega idarticulo a cada obj de la lista
-                        {
-                            item.IdArt = idArticulo;
-                        }
-
-                        //imagen.URLImagen = txtImagenes.Text;                      // comentado para agregar multiples img
-
-                        foreach (Imagen item in imagenes)                                   // NUEVO PARA CARGAR MULTIPLES IMAGENES agrega la lista item por item (nose si es la mejor forma pero si la hacemos andar puede ir)
-                        {
-                            imgNeg.Agregar_ModificarDatos(item, esAgregar);
-                        }
-
-                        //imgNeg.Agregar_ModificarDatos(imagen, esAgregar);         // comentado para agregar multiples imagenes
-                    }
-                    else
-                    {
-                        MessageBox.Show("Registro modificado exitosamente!");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show(ex.ToString());
-                }
-            }
-
-            Close();
-        }
 
         //ID DEL ULTIMO ARTICULO CARGADO PARA CARGAR IMAGEN
         private int idUltimoArt()
@@ -245,6 +170,82 @@ namespace Vistas
             {
                 e.Handled = true;
             }
+        }
+
+        //ACEPTAR
+        private void btnAceptar_Click(object sender, EventArgs e)
+        {
+            bool esAgregar = true;
+            ArticuloNegocio artNeg = new ArticuloNegocio();
+            ImagenNegocio imgNeg = new ImagenNegocio();
+
+            if (string.IsNullOrEmpty(txtCodigo.Text) ||
+                 string.IsNullOrEmpty(txtDescripcion.Text) ||
+                 string.IsNullOrEmpty(txtNombre.Text) ||
+                  string.IsNullOrEmpty(txtPrecio.Text) ||
+                  !float.TryParse(txtPrecio.Text, out float precio))
+            {
+                MessageBox.Show("Error: Todos los campos deben completarse con datos válidos");
+
+                return;
+            }
+            else
+            {
+                try
+                {
+                    if (articulo == null)
+                    {
+                        esAgregar = true;
+                        articulo = new Articulo();
+                    }
+                    else
+                    {
+                        esAgregar = false;
+                    }
+
+                    articulo.CodArt = txtCodigo.Text;
+                    articulo.DescripcionArt = txtDescripcion.Text;
+                    articulo.NombreArt = txtNombre.Text;
+                    articulo.MarcaArt = (Marca)cboMarca.SelectedItem;
+                    articulo.CategoriaArt = (Categoria)cboCategoria.SelectedItem;
+                    articulo.PrecioArt = decimal.Parse(txtPrecio.Text);
+
+                    artNeg.Agregar_ModificarDatos(articulo, esAgregar);
+
+                    if (esAgregar)
+                    {
+                        MessageBox.Show("Registro agregado exitosamente!");
+
+                        //imagen.IdArt = idUltimoArt();                             // comentado para agregar multiples img
+
+                        int idArticulo = idUltimoArt();
+
+                        foreach (Imagen item in imagenes)                                        // NUEVO PARA CARGAR MULTIPLES IMAGENES agrega idarticulo a cada obj de la lista
+                        {
+                            item.IdArt = idArticulo;
+                        }
+
+                        //imagen.URLImagen = txtImagenes.Text;                      // comentado para agregar multiples img
+
+                        foreach (Imagen item in imagenes)                                   // NUEVO PARA CARGAR MULTIPLES IMAGENES agrega la lista item por item (nose si es la mejor forma pero si la hacemos andar puede ir)
+                        {
+                            imgNeg.Agregar_ModificarDatos(item, esAgregar);
+                        }
+
+                        //imgNeg.Agregar_ModificarDatos(imagen, esAgregar);         // comentado para agregar multiples imagenes
+                    }
+                    else
+                    {
+                        MessageBox.Show("Registro modificado exitosamente!");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+
+            Close();
         }
     }
 }

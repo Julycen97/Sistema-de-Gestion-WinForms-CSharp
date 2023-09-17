@@ -53,9 +53,9 @@
             // btnAceptar
             // 
             this.btnAceptar.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnAceptar.Location = new System.Drawing.Point(117, 315);
+            this.btnAceptar.Location = new System.Drawing.Point(105, 315);
             this.btnAceptar.Name = "btnAceptar";
-            this.btnAceptar.Size = new System.Drawing.Size(75, 23);
+            this.btnAceptar.Size = new System.Drawing.Size(87, 23);
             this.btnAceptar.TabIndex = 0;
             this.btnAceptar.Text = "Aceptar";
             this.btnAceptar.UseVisualStyleBackColor = true;
@@ -211,7 +211,7 @@
             this.btnCancelar.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnCancelar.Location = new System.Drawing.Point(198, 315);
             this.btnCancelar.Name = "btnCancelar";
-            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelar.Size = new System.Drawing.Size(87, 23);
             this.btnCancelar.TabIndex = 15;
             this.btnCancelar.Text = "Cancelar";
             this.btnCancelar.UseVisualStyleBackColor = true;
@@ -231,9 +231,9 @@
             // btnVerImagen
             // 
             this.btnVerImagen.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.btnVerImagen.Location = new System.Drawing.Point(117, 241);
+            this.btnVerImagen.Location = new System.Drawing.Point(105, 241);
             this.btnVerImagen.Name = "btnVerImagen";
-            this.btnVerImagen.Size = new System.Drawing.Size(75, 23);
+            this.btnVerImagen.Size = new System.Drawing.Size(87, 23);
             this.btnVerImagen.TabIndex = 17;
             this.btnVerImagen.Text = "Ver";
             this.btnVerImagen.UseVisualStyleBackColor = true;
@@ -244,7 +244,7 @@
             this.btnAgregarImagen.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.btnAgregarImagen.Location = new System.Drawing.Point(198, 241);
             this.btnAgregarImagen.Name = "btnAgregarImagen";
-            this.btnAgregarImagen.Size = new System.Drawing.Size(75, 23);
+            this.btnAgregarImagen.Size = new System.Drawing.Size(87, 23);
             this.btnAgregarImagen.TabIndex = 18;
             this.btnAgregarImagen.Text = "Agregar";
             this.btnAgregarImagen.UseVisualStyleBackColor = true;

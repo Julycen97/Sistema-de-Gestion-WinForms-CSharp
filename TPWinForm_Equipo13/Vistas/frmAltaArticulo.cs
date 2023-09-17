@@ -34,7 +34,7 @@ namespace Vistas
 
             Text = "Modificar Articulo";
         }
-
+        //VER
         private void btnAceptar_Click(object sender, EventArgs e)
         {
             bool esAgregar = true;
@@ -44,8 +44,6 @@ namespace Vistas
             if (string.IsNullOrEmpty(txtCodigo.Text) ||
                  string.IsNullOrEmpty(txtDescripcion.Text) ||
                  string.IsNullOrEmpty(txtNombre.Text) ||
-                 /*cboMarca.SelectedItem == null ||
-                 cboCategoria.SelectedItem == null ||*/
                   string.IsNullOrEmpty(txtPrecio.Text) ||
                   !float.TryParse(txtPrecio.Text, out float precio))
             {
@@ -55,30 +53,24 @@ namespace Vistas
             }
             else
             {
-
                 try
                 {
                     if (articulo == null)
                     {
-                        articulo = new Articulo();
                         esAgregar = true;
-                        articulo.CodArt = txtCodigo.Text;
-                        articulo.DescripcionArt = txtDescripcion.Text;
-                        articulo.NombreArt = txtNombre.Text;
-                        articulo.MarcaArt = (Marca)cboMarca.SelectedItem;
-                        articulo.CategoriaArt = (Categoria)cboCategoria.SelectedItem;
-                        articulo.PrecioArt = (decimal)float.Parse(txtPrecio.Text);
+                        articulo = new Articulo();
                     }
                     else
                     {
                         esAgregar = false;
-                        articulo.CodArt = txtCodigo.Text;
-                        articulo.DescripcionArt = txtDescripcion.Text;
-                        articulo.NombreArt = txtNombre.Text;
-                        articulo.MarcaArt = (Marca)cboMarca.SelectedItem;
-                        articulo.CategoriaArt = (Categoria)cboCategoria.SelectedItem;
-                        articulo.PrecioArt = (decimal)float.Parse(txtPrecio.Text);
                     }
+
+                    articulo.CodArt = txtCodigo.Text;
+                    articulo.DescripcionArt = txtDescripcion.Text;
+                    articulo.NombreArt = txtNombre.Text;
+                    articulo.MarcaArt = (Marca)cboMarca.SelectedItem;
+                    articulo.CategoriaArt = (Categoria)cboCategoria.SelectedItem;
+                    articulo.PrecioArt = decimal.Parse(txtPrecio.Text);
 
                     artNeg.Agregar_ModificarDatos(articulo, esAgregar);
 
@@ -92,7 +84,7 @@ namespace Vistas
 
                         foreach (Imagen item in imagenes)                                        // NUEVO PARA CARGAR MULTIPLES IMAGENES agrega idarticulo a cada obj de la lista
                         {
-                            item.IdImagen = idArticulo;
+                            item.IdArt = idArticulo;
                         }
 
                         //imagen.URLImagen = txtImagenes.Text;                      // comentado para agregar multiples img
@@ -108,7 +100,6 @@ namespace Vistas
                     {
                         MessageBox.Show("Registro modificado exitosamente!");
                     }
-
                 }
                 catch (Exception ex)
                 {
@@ -119,6 +110,7 @@ namespace Vistas
             Close();
         }
 
+        //ID DEL ULTIMO ARTICULO CARGADO PARA CARGAR IMAGEN
         private int idUltimoArt()
         {
             AccesoDatos dato = new AccesoDatos();
@@ -146,17 +138,21 @@ namespace Vistas
             }
         }
 
+        //CERRAR
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             Close();
         }
 
+        //CARGA DE PAGINA AL APARECER
         private void frmAltaArticulo_Load(object sender, EventArgs e)
         {
             MarcaNegocio marcaNegocio = new MarcaNegocio();
             CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
-            ArticuloNegocio artNeg = new ArticuloNegocio();
-                   
+
+            //BOTON AGREGAR NO VISIBLE HASTA QUE SE CARGUE UNA IMAGEN VALIDA
+            btnAgregarImagen.Visible = false;
+
             try
             {
                 cboMarca.DataSource = marcaNegocio.ObtenerDatos();
@@ -178,8 +174,7 @@ namespace Vistas
 
                     try
                     {
-                        //txtImagenes.Text = articulo.ImagenArt[0].URLImagen;
-                        pbxImagen.Load(txtImagenes.Text);
+                        pbxImagen.Load(articulo.ImagenArt[0].URLImagen);
                     }
                     catch (Exception)
                     {
@@ -194,52 +189,60 @@ namespace Vistas
             }
         }
 
-        //AGREGAR IMAGEN
+        //VER IMAGEN
         private void btnVerImagen_Click(object sender, EventArgs e)
         {
             try
             {
                 pbxImagen.Load(txtImagenes.Text);
 
+                //HACE VISIBLE EL BOTON AGREGAR SI LA IMAGEN ES VALIDA
+                btnAgregarImagen.Visible = true;
             }
             catch (Exception)
             {
+                MessageBox.Show("La imagen proporcionada no es valida ...");
                 pbxImagen.Load("https://images.assetsdelivery.com/compings_v2/pavelstasevich/pavelstasevich1811/pavelstasevich181101028.jpg");
             }
         }
 
+        //AGREGAR IMAGEN (CHEQUEO)
         private void btnAgregarImagen_Click(object sender, EventArgs e)          // NUEVO PARA AGREGAR MULTIPLES IMG
         {
-            try
-            {
-                    //Primero agrega la imagen a la lista de imagenes del articulo
-                Imagen nuevaImg = new Imagen();
-                nuevaImg.URLImagen = txtImagenes.Text;
-                nuevaImg.IdArt = articulo.ID;
-                imagenes.Add(nuevaImg);
+            ImagenNegocio imgNeg = new ImagenNegocio();
 
-                    //Luego agrega la imagen a la base de datos, validando si la URL es una imagen
-                    //si no es imagen tira error y borra el contenido del txtImagenes
-                bool esAgregar = true;
-                ImagenNegocio imgNeg = new ImagenNegocio();
-                try
-                {
-                pbxImagen.Load(txtImagenes.Text);
-                }
-                catch (Exception)
-                {
-                    MessageBox.Show("Error en la carga de la imagen");
-                    txtImagenes.Text = string.Empty;
-                    return;
-                    
-                }
-                imgNeg.Agregar_ModificarDatos(nuevaImg, esAgregar);
-                MessageBox.Show("Imagen agregada al articulo codigo: " + articulo.CodArt);
-                txtImagenes.Text = string.Empty;
-            }
-            catch (Exception ex)
+            if(articulo != null)
             {
-                MessageBox.Show(ex.ToString());
+                imagen.IdArt = articulo.ID;
+                imagen.URLImagen = txtImagenes.Text;               
+
+                imgNeg.Agregar_ModificarDatos(imagen, true);
+
+                MessageBox.Show("Imagen agregada al articulo ID: " + articulo.ID);
+
+                txtImagenes.Text = string.Empty;
+
+                //HACE NO VISIBLE EL BOTON AGREGAR SI CARGO BIEN LA IMAGEN
+                btnAgregarImagen.Visible = false;
+            }
+            else
+            {
+                //ASIGNA URL PARA CUANDO PRESIONE ACEPTAR CARGUE TODAS LAS IMAGENES
+                //EN EL EVENTO DEL CLICK_BTNACEPTAR
+                imagen.URLImagen = txtImagenes.Text;
+
+                //CARGA LA LISTA PARA AGREGAR AL ARTICULO EN EVENTO CLICK_BTNACEPTAR
+                imagenes.Add(imagen);
+            }
+        }
+
+        //EVENTO SE LANZA AL PRESIONAR TECLA EN TEXTBOX
+        private void txtPrecio_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            //SOLO ADMITE NUMEROS
+            if ((e.KeyChar < 48 || e.KeyChar > 59) && e.KeyChar != 8)
+            {
+                e.Handled = true;
             }
         }
     }

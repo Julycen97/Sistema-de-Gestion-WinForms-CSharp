@@ -41,12 +41,12 @@ namespace Vistas
                 txtDescripcion.Text = articulo.DescripcionArt.ToString();
                 txtCategoria.Text = articulo.CategoriaArt.ToString();
                 txtPrecio.Text = articulo.PrecioArt.ToString();
-                
-                    //Valida si tiene la lista de imagenes del articulo vacia
-                if(articulo.ImagenArt.Count > 0)
+
                 pbImagen.Load(articulo.ImagenArt[0].URLImagen);
-
-
+            }
+            catch (WebException)
+            {
+                pbImagen.Load("https://images.assetsdelivery.com/compings_v2/pavelstasevich/pavelstasevich1811/pavelstasevich181101028.jpg");
             }
             catch (Exception ex)
             {
@@ -87,8 +87,6 @@ namespace Vistas
             {
                 indiceImg ++;
             }
-
-
         }
     }
 }

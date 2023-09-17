@@ -151,7 +151,7 @@ namespace Vistas
             CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
 
             //BOTON AGREGAR NO VISIBLE HASTA QUE SE CARGUE UNA IMAGEN VALIDA
-            btnAgregarImagen.Visible = false;
+            //btnAgregarImagen.Visible = false;
 
             try
             {
@@ -211,7 +211,7 @@ namespace Vistas
         {
             ImagenNegocio imgNeg = new ImagenNegocio();
 
-            if(articulo != null)
+            if (articulo != null)
             {
                 imagen.IdArt = articulo.ID;
                 imagen.URLImagen = txtImagenes.Text;               
@@ -223,16 +223,17 @@ namespace Vistas
                 txtImagenes.Text = string.Empty;
 
                 //HACE NO VISIBLE EL BOTON AGREGAR SI CARGO BIEN LA IMAGEN
-                btnAgregarImagen.Visible = false;
+                //btnAgregarImagen.Visible = false;
             }
             else
             {
                 //ASIGNA URL PARA CUANDO PRESIONE ACEPTAR CARGUE TODAS LAS IMAGENES
                 //EN EL EVENTO DEL CLICK_BTNACEPTAR
-                imagen.URLImagen = txtImagenes.Text;
+                Imagen nuevaImg = new Imagen();
+                nuevaImg.URLImagen = txtImagenes.Text;
 
                 //CARGA LA LISTA PARA AGREGAR AL ARTICULO EN EVENTO CLICK_BTNACEPTAR
-                imagenes.Add(imagen);
+                imagenes.Add(nuevaImg);
             }
         }
 

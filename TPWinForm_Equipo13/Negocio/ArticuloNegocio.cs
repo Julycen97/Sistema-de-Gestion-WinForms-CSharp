@@ -1,6 +1,7 @@
 ﻿using Dominio;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -196,11 +197,11 @@ namespace Negocio
         {
             AccesoDatos datos = new AccesoDatos();
 
+            //ELIMINA EL ARTICULO
             try
             {
                 datos.SetearConsulta("DELETE FROM ARTICULOS WHERE Id = @ID");
                 datos.SetearParametro("@ID", IdArt);
-
                 datos.AbrirConexionEjecutarAccion();
             }
             catch (Exception ex)
@@ -211,6 +212,23 @@ namespace Negocio
             {
                 datos.CerrarConexion();
             }
+
+            //ELIMINA LAS IMAGENES DEL ARTICULO
+            try
+            {
+                datos.SetearConsulta("DELETE FROM IMAGENES WHERE IdArticulo = @IDartImg");
+                datos.SetearParametro("@IDartImg", IdArt);
+                datos.AbrirConexionEjecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.CerrarConexion();
+            }
+
         }
 
         //MÉTODO FILTRO AVANZADO (PEGARLE CHUSEMADA)

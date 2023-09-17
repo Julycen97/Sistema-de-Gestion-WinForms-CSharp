@@ -76,7 +76,7 @@ namespace Vistas
             CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
 
             //BOTON AGREGAR NO VISIBLE HASTA QUE SE CARGUE UNA IMAGEN VALIDA
-            //btnAgregarImagen.Visible = false;
+            btnAgregarImagen.Visible = true;
 
             try
             {
@@ -148,7 +148,8 @@ namespace Vistas
                 txtImagenes.Text = string.Empty;
 
                 //HACE NO VISIBLE EL BOTON AGREGAR SI CARGO BIEN LA IMAGEN
-                //btnAgregarImagen.Visible = false;
+                btnAgregarImagen.Visible = false;
+
             }
             else
             {
@@ -216,8 +217,6 @@ namespace Vistas
                     {
                         MessageBox.Show("Registro agregado exitosamente!");
 
-                        //imagen.IdArt = idUltimoArt();                             // comentado para agregar multiples img
-
                         int idArticulo = idUltimoArt();
 
                         foreach (Imagen item in imagenes)                                        // NUEVO PARA CARGAR MULTIPLES IMAGENES agrega idarticulo a cada obj de la lista
@@ -225,14 +224,11 @@ namespace Vistas
                             item.IdArt = idArticulo;
                         }
 
-                        //imagen.URLImagen = txtImagenes.Text;                      // comentado para agregar multiples img
-
                         foreach (Imagen item in imagenes)                                   // NUEVO PARA CARGAR MULTIPLES IMAGENES agrega la lista item por item (nose si es la mejor forma pero si la hacemos andar puede ir)
                         {
                             imgNeg.Agregar_ModificarDatos(item, esAgregar);
                         }
 
-                        //imgNeg.Agregar_ModificarDatos(imagen, esAgregar);         // comentado para agregar multiples imagenes
                     }
                     else
                     {

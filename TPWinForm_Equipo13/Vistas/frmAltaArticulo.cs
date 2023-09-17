@@ -76,7 +76,7 @@ namespace Vistas
             CategoriaNegocio categoriaNegocio = new CategoriaNegocio();
 
             //BOTON AGREGAR NO VISIBLE HASTA QUE SE CARGUE UNA IMAGEN VALIDA
-            btnAgregarImagen.Visible = false;
+            btnAgregarImagen.Enabled = false;
 
             try
             {
@@ -122,7 +122,7 @@ namespace Vistas
                 pbxImagen.Load(txtImagenes.Text);
 
                 //HACE VISIBLE EL BOTON AGREGAR SI LA IMAGEN ES VALIDA
-                btnAgregarImagen.Visible = true;
+                btnAgregarImagen.Enabled = true;
             }
             catch (Exception)
             {
@@ -152,7 +152,7 @@ namespace Vistas
                     txtImagenes.Text = string.Empty;
 
                     //HACE NO VISIBLE EL BOTON AGREGAR SI CARGO BIEN LA IMAGEN
-                    btnAgregarImagen.Visible = false;
+                    btnAgregarImagen.Enabled = false;
                 }
                 else
                 {
@@ -169,7 +169,7 @@ namespace Vistas
                     MessageBox.Show("Imagen agregada !");
 
                     //HACE NO VISIBLE EL BOTON AGREGAR SI CARGO BIEN LA IMAGEN
-                    btnAgregarImagen.Visible = false;
+                    btnAgregarImagen.Enabled = false;
                 }
             }
             catch (Exception)
@@ -178,7 +178,7 @@ namespace Vistas
                 pbxImagen.Load("https://images.assetsdelivery.com/compings_v2/pavelstasevich/pavelstasevich1811/pavelstasevich181101028.jpg");
                 MessageBox.Show("Error al cargar la imagen");
                 //HACE NO VISIBLE EL BOTON AGREGAR SI CARGO BIEN LA IMAGEN
-                btnAgregarImagen.Visible = false;
+                btnAgregarImagen.Enabled = false;
             }
         }
 
@@ -268,6 +268,8 @@ namespace Vistas
         private void btnLimpiar_Click(object sender, EventArgs e)
         {
             txtImagenes.Text = "";
+            btnAgregarImagen.Enabled = false;
+            pbxImagen.Image = null;
         }
     }
 }

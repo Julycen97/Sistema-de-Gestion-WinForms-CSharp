@@ -206,6 +206,11 @@ namespace Vistas
             }
         }
 
+        private void btnLimpiarFiltroAvanzado_Click(object sender, EventArgs e)
+        {
+            txtFiltrarAvanzado.Text = "";
+            cargar();
+        }
     }
 }
 

@@ -142,7 +142,7 @@ namespace Vistas
                 return;
             }
 
-            if (string.IsNullOrEmpty(txtFiltrarAvanzado.Text) || txtFiltrarAvanzado.Text == null)
+            if (string.IsNullOrEmpty(txtFiltrarAvanzado.Text))
             {
                 return;
 

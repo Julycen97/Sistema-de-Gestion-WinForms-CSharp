@@ -24,7 +24,7 @@ namespace Negocio
             try
             {
 
-                datosArt.SetearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, M.Descripcion AS Marca, A.IdCategoria, C.Descripcion AS Categoria, Precio FROM ARTICULOS AS A LEFT JOIN MARCAS AS M ON A.IdMarca = M.Id LEFT JOIN CATEGORIAS AS C ON A.IdCategoria = C.Id");
+                datosArt.SetearConsulta("SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, M.Descripcion AS Marca, A.IdCategoria, C.Descripcion AS Categoria, A.Precio FROM ARTICULOS AS A LEFT JOIN MARCAS AS M ON A.IdMarca = M.Id LEFT JOIN CATEGORIAS AS C ON A.IdCategoria = C.Id");
                 datosArt.AbrirConexionEjecutarConsulta();
 
                 while (datosArt.Lector.Read())
@@ -33,73 +33,19 @@ namespace Negocio
                     
                     //NO SE CHEQUEA NULIDAD POR QUE NO ACEPTA VALORES NULOS
                     aux.ID = (int)datosArt.Lector["Id"];
-
-                    //CHECK NULL
-                    if (!(datosArt.Lector["Codigo"] is DBNull))
-                    {
-                        aux.CodArt = (string)datosArt.Lector["Codigo"];
-                    }
-                    else
-                    {
-                        //ASIGNACION POR DEFECTO
-                        aux.CodArt = " ";
-                    }
-
-                    //CHECK NULL
-                    if (!(datosArt.Lector["Nombre"] is DBNull))
-                    {
-                        aux.NombreArt = (string)datosArt.Lector["Nombre"];
-                    }
-                    else
-                    {
-                        //ASIGNACION POR DEFECTO
-                        aux.NombreArt = " ";
-                    }
-
-                    //CHECK NULL
-                    if (!(datosArt.Lector["Descripcion"] is DBNull))
-                    {
-                        aux.DescripcionArt = (string)datosArt.Lector["Descripcion"];
-                    }
-                    else
-                    {
-                        //ASIGNACION POR DEFECTO
-                        aux.DescripcionArt = " ";
-                    }
-
-                    //CHECK NULL
-                    if (!(datosArt.Lector["IdMarca"] is DBNull))
-                    {
-                        aux.MarcaArt.IdMarca = (int)datosArt.Lector["IdMarca"];
-                    }
-                    else
-                    {
-                        //ASIGNACION POR DEFECTO
-                        aux.MarcaArt.IdMarca = 0;
-                    }
-
-                    //CHECK NULL
-                    if (!(datosArt.Lector["Marca"] is DBNull))
-                    {
-                        aux.MarcaArt.NombreMarca = (string)datosArt.Lector["Marca"];
-                    }
-                    else
-                    {
-                        //ASIGNACION POR DEFECTO
-                        aux.MarcaArt.NombreMarca = "S/M";
-                    }
-
-                    //CHECK NULL
-                    if (!(datosArt.Lector["IdCategoria"] is DBNull))
-                    {
-                        aux.CategoriaArt.IdCategoria = (int)datosArt.Lector["IdCategoria"];
-                    }
-                    else
-                    {
-                        //ASIGNACION POR DEFECTO
-                        aux.CategoriaArt.IdCategoria = 0;
-                    }
-
+                    //SE TOMA DECICION CON OPERADOR TERNARIO
+                    aux.CodArt = (string)datosArt.Lector["Codigo"] is DBNull ? "S/C" : (string)datosArt.Lector["Codigo"];
+                    //SE TOMA DECICION CON OPERADOR TERNARIO
+                    aux.NombreArt = (string)datosArt.Lector["Nombre"] is DBNull ? "S/N" : (string)datosArt.Lector["Nombre"];
+                    //SE TOMA DECICION CON OPERADOR TERNARIO
+                    aux.DescripcionArt = (string)datosArt.Lector["Descripcion"] is DBNull ? "S/D" : (string)datosArt.Lector["Descripcion"];
+                    //SE TOMA DECICION CON OPERADOR TERNARIO
+                    aux.MarcaArt.IdMarca = (int)datosArt.Lector["IdMarca"] is DBNull ? 0 : (int)datosArt.Lector["IdMarca"];
+                    //SE TOMA DECICION CON OPERADOR TERNARIO
+                    aux.MarcaArt.NombreMarca = (string)datosArt.Lector["Marca"] is DBNull ? "S/M" : (string)datosArt.Lector["Marca"];
+                    //SE TOMA DECICION CON OPERADOR TERNARIO
+                    aux.CategoriaArt.IdCategoria = (int)datosArt.Lector["IdCategoria"] is DBNull ? 0 : (int)datosArt.Lector["IdCategoria"];
+                    
                     //CHECK NULL
                     if (!(datosArt.Lector["Categoria"] is DBNull))
                     {
@@ -111,17 +57,8 @@ namespace Negocio
                         aux.CategoriaArt.NombreCategoria = "S/C";
                     }
 
-                    //CHECK NULL
-                    if (!(datosArt.Lector["Precio"] is DBNull))
-                    {
-                        aux.PrecioArt = (decimal)datosArt.Lector["Precio"];
-                    }
-                    else
-                    {
-                        //ASIGNACION POR DEFECTO
-                        aux.PrecioArt = 0;
-                    }
-
+                    //SE TOMA DECICION CON OPERADOR TERNARIO
+                    aux.PrecioArt = (decimal)datosArt.Lector["Precio"] is DBNull ? 0 : (decimal)datosArt.Lector["Precio"];
 
                     aux.ImagenArt = ObtenerImagenes(aux);
 
@@ -173,33 +110,9 @@ namespace Negocio
                     datos.SetearParametro("@IdArt", aux.ID);
                 }
 
-                if (aux.CodArt != null)
-                {
-                    datos.SetearParametro("@Codigo", aux.CodArt);
-                }
-                else
-                {
-                    datos.SetearParametro("@Codigo", null);
-                }
-
-                if (aux.NombreArt != null)
-                {
-                    datos.SetearParametro("@Nombre", aux.NombreArt);
-                }
-                else
-                {
-                    datos.SetearParametro("@Nombre", null);
-                }
-
-                if(aux.DescripcionArt != null)
-                {
-                    datos.SetearParametro("@Descripcion", aux.DescripcionArt);
-                }
-                else
-                {
-                    datos.SetearParametro("@Descripcion", null);
-                }
-
+                datos.SetearParametro("@Codigo", aux.CodArt != null ? aux.CodArt : null);
+                datos.SetearParametro("@Nombre", aux.NombreArt != null ? aux.NombreArt : null);
+                datos.SetearParametro("@Descripcion", aux.DescripcionArt != null ? aux.DescripcionArt : null);
 
                 if (aux.MarcaArt != null)
                 {
@@ -280,77 +193,110 @@ namespace Negocio
 
             try
             {                   
-                string consulta = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, M.Descripcion AS Marca, A.IdCategoria, C.Descripcion AS Categoria, Precio FROM ARTICULOS AS A LEFT JOIN MARCAS AS M ON A.IdMarca = M.Id LEFT JOIN CATEGORIAS AS C ON A.IdCategoria = C.Id WHERE ";
+                string consulta = "SELECT A.Id, A.Codigo, A.Nombre, A.Descripcion, A.IdMarca, M.Descripcion AS Marca, A.IdCategoria, C.Descripcion AS Categoria, A.Precio FROM ARTICULOS AS A LEFT JOIN MARCAS AS M ON A.IdMarca = M.Id LEFT JOIN CATEGORIAS AS C ON A.IdCategoria = C.Id WHERE ";
 
                 switch (campo)
                 {
                     case "Nombre":
-                        consulta += "A.Nombre LIKE ";
-
-                        switch (criterio)
                         {
-                            case "Comienza con":
-                                consulta += "'" + filtro + "%'";
-                                break;
-                            case "Termina con":
-                                consulta += "'%" + filtro + "'";
-                                break;
-                            case "Contiene":
-                                consulta += "'%" + filtro + "%'";
-                                break;
+                            consulta += "A.Nombre LIKE ";
+
+                            switch (criterio)
+                            {
+                                case "Comienza con":
+                                    {
+                                        consulta += "'" + filtro + "%'";
+                                    }
+                                    break;
+                                case "Termina con":
+                                    {
+                                        consulta += "'%" + filtro + "'";
+                                    }
+                                    break;
+                                case "Contiene":
+                                    {
+                                        consulta += "'%" + filtro + "%'";
+                                    }
+                                    break;
+                            }
                         }
                         break;
                     case "Marca":
-                        consulta += "M.Descripcion LIKE ";
-                        
-                        switch (criterio)
                         {
-                            case "Comienza con":
-                                consulta += "'" + filtro + "%'";
-                                break;
-                            case "Termina con":
-                                consulta += "'%" + filtro + "'"; 
-                                break;
-                            case "Contiene":
-                                consulta += "'%" + filtro + "%'";
-                                break;
+                            consulta += "M.Descripcion LIKE ";
+
+                            switch (criterio)
+                            {
+                                case "Comienza con":
+                                    {
+                                        consulta += "'" + filtro + "%'";
+                                    }
+                                    break;
+                                case "Termina con":
+                                    {
+                                        consulta += "'%" + filtro + "'";
+                                    }
+                                    break;
+                                case "Contiene":
+                                    {
+                                        consulta += "'%" + filtro + "%'";
+                                    }
+                                    break;
+                            }
                         }
                         break;
                     case "Categoria":
-                        consulta += "C.Descripcion LIKE ";
-                        
-                        switch (criterio)
                         {
-                            case "Comienza con":
-                                consulta += "'" + filtro + "%'";
-                                break;
-                            case "Termina con":
-                                consulta += "'%" + filtro + "'";
-                                break;
-                            case "Contiene":
-                                consulta += "'%" + filtro + "%'";
-                                break;
+                            consulta += "C.Descripcion LIKE ";
+
+                            switch (criterio)
+                            {
+                                case "Comienza con":
+                                    {
+                                        consulta += "'" + filtro + "%'";
+                                    }
+                                    break;
+                                case "Termina con":
+                                    {
+                                        consulta += "'%" + filtro + "'";
+                                    }
+                                    break;
+                                case "Contiene":
+                                    {
+                                        consulta += "'%" + filtro + "%'";
+                                    }
+                                    break;
+                            }
                         }
                         break;
                     case "Precio":
-                        consulta += "Precio ";
-                        
-                        switch (criterio)
                         {
-                            case "Mayor a":
-                                consulta += "> " + filtro;
-                                break;
-                            case "Menor a":
-                                consulta += "< " + filtro;
-                                break;
-                            case "Igual a":
-                                consulta += "= " + filtro;
-                                break;
-                            default:
-                                break;
+                            consulta += "Precio ";
+
+                            switch (criterio)
+                            {
+                                case "Mayor a":
+                                    {
+                                        consulta += "> " + filtro;
+                                    }
+                                    break;
+                                case "Menor a":
+                                    {
+                                        consulta += "< " + filtro;
+                                    }
+                                    break;
+                                case "Igual a":
+                                    {
+                                        consulta += "= " + filtro;
+                                    }
+                                    break;
+                                default:
+                                    {
+                                    }
+                                    break;
+                            }
                         }
                         break;
-                    
                 }
 
                 datosArt.SetearConsulta(consulta);
@@ -359,12 +305,34 @@ namespace Negocio
                 while (datosArt.Lector.Read())
                 {
                     Articulo aux = new Articulo();
+                    //SE TOMA DECICION CON OPERADOR TERNARIO
+                    aux.ID = (int)datosArt.Lector["Id"];
+                    //SE TOMA DECICION CON OPERADOR TERNARIO
+                    aux.CodArt = (string)datosArt.Lector["Codigo"] is DBNull ? "S/C" : (string)datosArt.Lector["Codigo"];
+                    //SE TOMA DECICION CON OPERADOR TERNARIO
+                    aux.NombreArt = (string)datosArt.Lector["Nombre"] is DBNull? "S/N": (string)datosArt.Lector["Nombre"];
+                    //SE TOMA DECICION CON OPERADOR TERNARIO
+                    aux.DescripcionArt = (string)datosArt.Lector["Descripcion"] is DBNull ? "S/D" : (string)datosArt.Lector["Descripcion"];
+                    //SE TOMA DECICION CON OPERADOR TERNARIO
+                    aux.MarcaArt.IdMarca = (int)datosArt.Lector["IdMarca"] is DBNull ? 0 : (int)datosArt.Lector["IdMarca"];
+                    //SE TOMA DECICION CON OPERADOR TERNARIO
+                    aux.MarcaArt.NombreMarca = (string)datosArt.Lector["Marca"] is DBNull ? "S/M" : (string)datosArt.Lector["Marca"];
+                    //SE TOMA DECICION CON OPERADOR TERNARIO
+                    aux.CategoriaArt.IdCategoria = (int)datosArt.Lector["IdCategoria"] is DBNull ? 0 : (int)datosArt.Lector["IdCategoria"];
+                    
+                    //CHECK NULL
+                    if (!(datosArt.Lector["Categoria"] is DBNull))
+                    {
+                        aux.CategoriaArt.NombreCategoria = (string)datosArt.Lector["Categoria"];
+                    }
+                    else
+                    {
+                        //ASIGNACION POR DEFECTO
+                        aux.CategoriaArt.NombreCategoria = "S/C";
+                    }
 
-                    //aux.ID = (int)datosArt.Lector["Id"];
-                    aux.NombreArt = (string)datosArt.Lector["Nombre"];
-                    aux.MarcaArt.NombreMarca = (string)datosArt.Lector["Marca"];
-                    aux.CategoriaArt.NombreCategoria = (string)datosArt.Lector["Categoria"];
-                    aux.PrecioArt = (decimal)datosArt.Lector["Precio"];
+                    //SE TOMA DECICION CON OPERADOR TERNARIO
+                    aux.PrecioArt = (decimal)datosArt.Lector["Precio"] is DBNull ? 0 : (decimal)datosArt.Lector["Precio"];
 
                     lista.Add(aux);
                 }
@@ -373,7 +341,6 @@ namespace Negocio
             }
             catch (Exception ex)
             {
-
                 throw ex;
             }
             finally

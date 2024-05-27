@@ -117,7 +117,7 @@ namespace Vistas
 
             try
             {
-                DialogResult respuesta = MessageBox.Show("¿Estás seguro que deseas eliminarlo?", "Eliminado", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                DialogResult respuesta = MessageBox.Show("¿Estás seguro que deseas eliminarlo?", "Eliminando", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
 
                 if (respuesta == DialogResult.Yes)
                 {

@@ -66,8 +66,10 @@ namespace Vistas
         {
             int cantidad = articulo.ImagenArt.Count();
 
-            if(indiceImg < cantidad)
+            if(indiceImg == 0)
             {
+                indiceImg ++;
+
                 try
                 {
                     pbImagen.Load(articulo.ImagenArt[indiceImg].URLImagen);
@@ -78,6 +80,17 @@ namespace Vistas
                 }
 
                 indiceImg ++;
+            }
+            else if(indiceImg < cantidad)
+            {
+                try
+                {
+                    pbImagen.Load(articulo.ImagenArt[indiceImg].URLImagen);
+                }
+                catch (Exception)
+                {
+                    pbImagen.Load("https://images.assetsdelivery.com/compings_v2/pavelstasevich/pavelstasevich1811/pavelstasevich181101028.jpg");
+                }
             }
             else
             {
